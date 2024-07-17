@@ -1,0 +1,23 @@
+/********************/
+
+.setting {
+    width: 100%;
+    margin-top: 20px;
+}
+.setting > div {
+    margin-top: 10px;
+}
+
+
+
+/*************************/
+
+.button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: var(--radius);
+    color: var(--white);
+    background-color: var(--primary);
+}

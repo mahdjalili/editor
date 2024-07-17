@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev --turbo",
+        "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"
@@ -13,7 +13,9 @@
         "next": "14.2.5",
         "react": "^18",
         "react-dom": "^18",
-        "react-konva": "^18.2.10"
+        "react-konva": "^18.2.10",
+        "uid": "^2.0.2",
+        "use-image": "^1.1.1"
     },
     "devDependencies": {
         "eslint": "^8",
