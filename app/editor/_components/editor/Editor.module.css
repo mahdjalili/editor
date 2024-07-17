@@ -1,0 +1,12 @@
+.wrapper {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.stage {
+    overflow: hidden;
+    border-radius: var(--radius);
+    padding: 0;
+}

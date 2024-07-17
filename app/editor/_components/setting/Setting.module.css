@@ -1,0 +1,22 @@
+.wrapper {
+    width: 30%;
+    height: 100vh;
+    padding: 0px 20px;
+    overflow-y: scroll;
+    border-left: 2px dashed var(--line);
+}
+.wrapper header{
+    text-align: center;
+    padding: 10px;
+}
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.add {
+    border-top: 2px dashed var(--line);
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+}

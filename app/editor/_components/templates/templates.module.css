@@ -1,0 +1,37 @@
+.wrapper {
+    width: 20%;
+    height: 100vh;
+    overflow-y: scroll;
+    border-right: 2px dashed var(--line);
+}
+.wrapper header{
+    text-align: center;
+}
+.list {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+.item {
+    cursor: pointer;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: var(--widget);
+    border-radius: var(--radius);
+}
+.item:nth-child(1) {
+    margin-top: 0;
+}
+.item img {
+    width: 100%;
+    border-radius: var(--radius);
+}
+.item span {
+    text-align: center;
+    margin-top: 20px;
+}
