@@ -1,12 +1,11 @@
 import style from "./image.module.css";
 
 import { useEffect, useRef } from "react";
-
 import { Image as ImageKonva, Transformer } from "react-konva";
-
 import useImage from "use-image";
-
 import { uid } from "uid";
+
+import { Button } from "antd";
 
 export default function Image({ shapeProps, onSelect, isSelected, onChange }) {
     const [image] = useImage(shapeProps.url);
@@ -126,13 +125,13 @@ export function ImageDefault({ onClick }) {
     };
 
     return (
-        <button
+        <Button
             className={`${style.button} widget`}
             onClick={() => {
                 onClick(def);
             }}
         >
             اضافه کردن عکس
-        </button>
+        </Button>
     );
 }

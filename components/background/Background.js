@@ -2,6 +2,8 @@ import style from "./Background.module.css";
 import { Image as ImageKonva } from "react-konva";
 import useImage from "use-image";
 
+import { Button } from "antd";
+
 export default function Background({ shapeProps, width, height, onSelect }) {
     const [image] = useImage(shapeProps.url);
 
@@ -30,13 +32,13 @@ export function BackgroundDefault({ onClick }) {
     };
 
     return (
-        <button
+        <Button
             className={`${style.button} widget`}
             onClick={() => {
                 onClick(def);
             }}
         >
             اضافه کردن بکگراند
-        </button>
+        </Button>
     );
 }

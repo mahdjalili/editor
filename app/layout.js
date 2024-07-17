@@ -1,12 +1,15 @@
 import "./globals.css";
 
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Providers from "@/providers/Providers";
 
 export default function RootLayout({ children }) {
     return (
         <html lang="fa-IR" dir="rtl">
             <body>
-                <Providers>{children}</Providers>
+                <AntdRegistry>
+                    <Providers>{children}</Providers>
+                </AntdRegistry>
             </body>
         </html>
     );

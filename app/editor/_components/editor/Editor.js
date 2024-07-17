@@ -25,12 +25,12 @@ export default function Editor() {
     const canvasSize =
         selectedTemplate.ratio <= 1
             ? {
-                  width: (window.innerHeight - 40) * selectedTemplate.ratio,
-                  height: window.innerHeight - 40,
+                  width: (window.innerHeight - 80) * selectedTemplate.ratio,
+                  height: window.innerHeight - 80,
               }
             : {
-                  width: window.innerWidth / 2 - 40,
-                  height: (window.innerWidth / 2 - 40) / selectedTemplate.ratio,
+                  width: window.innerWidth / 2 - 80,
+                  height: (window.innerWidth / 2 - 80) / selectedTemplate.ratio,
               };
 
     return (

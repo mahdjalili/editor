@@ -31,8 +31,9 @@ export default function Setting() {
                 ))}
             </div>
             <div className={style.add}>
-                {componentList.map((component) => (
+                {componentList.map((component, index) => (
                     <component.component
+                        key={index}
                         onClick={(data) => {
                             setComponents((prev) => [...prev, data]);
                         }}

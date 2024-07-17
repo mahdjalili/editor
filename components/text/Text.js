@@ -1,10 +1,10 @@
 import style from "./text.module.css";
 
 import { useEffect, useRef } from "react";
-
 import { Text as TextKonva, Transformer } from "react-konva";
-
 import { uid } from "uid";
+
+import { Button } from "antd";
 
 export default function Text({ shapeProps, onSelect, isSelected, onChange }) {
     const shapeRef = useRef();
@@ -167,13 +167,13 @@ export function TextDefault({ onClick }) {
     };
 
     return (
-        <button
+        <Button
             className={`${style.button} widget`}
             onClick={() => {
                 onClick(def);
             }}
         >
             اضافه کردن متن
-        </button>
+        </Button>
     );
 }
