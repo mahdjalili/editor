@@ -6,13 +6,13 @@ import { useState, useEffect, useContext } from "react";
 
 import { Stage, Layer, Label } from "react-konva";
 
-import { TemplatesContext } from "@/providers/TemplateProvider";
+import { EditorContext } from "@/providers/EditorProvider";
 
 export default function Editor() {
-    const templatesContext = useContext(TemplatesContext);
+    const editorProvider = useContext(EditorContext);
 
-    const [components, setComponents] = templatesContext.components;
-    const [selectedTemplate] = templatesContext.selectedTemplate;
+    const [layers, setLayers] = editorProvider.layers;
+    const [selectedTemplate] = editorProvider.selectedTemplate;
     const [selectedId, setSelectedId] = useState();
 
     const checkDeselect = (e) => {
@@ -44,22 +44,22 @@ export default function Editor() {
             >
                 <Layer>
                     <Label></Label>
-                    {components.map((component, index) => (
-                        <component.component
-                            key={`key-${component.id}`}
+                    {layers.map((layer, index) => (
+                        <layer.component
+                            key={`key-${layer.id}`}
                             width={canvasSize.width}
                             height={canvasSize.height}
-                            shapeProps={component}
-                            isSelected={component.id === selectedId}
+                            shapeProps={layer}
+                            isSelected={layer.id === selectedId}
                             onSelect={() => {
-                                setSelectedId(component.id);
+                                setSelectedId(layer.id);
                             }}
                             onChange={(newData) => {
-                                const newComponents = components.slice();
-                                newComponents[index] = newData;
-                                setComponents(newComponents);
+                                const newLayers = layers.slice();
+                                newLayers[index] = newData;
+                                setLayers(newLayers);
                             }}
-                        ></component.component>
+                        ></layer.component>
                     ))}
                 </Layer>
             </Stage>

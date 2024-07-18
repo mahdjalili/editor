@@ -1,15 +1,10 @@
-import style from "./image.module.css";
+import style from "./text.module.css";
 
 import { useEffect, useRef } from "react";
-import { Image as ImageKonva, Transformer } from "react-konva";
-import useImage from "use-image";
+import { Text as TextKonva, Transformer } from "react-konva";
 import { uid } from "uid";
 
-import { Button } from "antd";
-
-export default function Image({ shapeProps, onSelect, isSelected, onChange }) {
-    const [image] = useImage(shapeProps.url);
-
+export function Text({ shapeProps, onSelect, isSelected, onChange }) {
     const shapeRef = useRef();
     const trRef = useRef();
 
@@ -22,8 +17,7 @@ export default function Image({ shapeProps, onSelect, isSelected, onChange }) {
 
     return (
         <>
-            <ImageKonva
-                image={image}
+            <TextKonva
                 onTap={onSelect}
                 onClick={onSelect}
                 ref={shapeRef}
@@ -36,7 +30,7 @@ export default function Image({ shapeProps, onSelect, isSelected, onChange }) {
                         y: e.target.y(),
                     });
                 }}
-                onTransformEnd={(e) => {
+                onTransform={(e) => {
                     const node = shapeRef.current;
                     const scaleX = node.scaleX();
                     const scaleY = node.scaleY();
@@ -51,7 +45,7 @@ export default function Image({ shapeProps, onSelect, isSelected, onChange }) {
                         height: Math.max(node.height() * scaleY),
                     });
                 }}
-            ></ImageKonva>
+            ></TextKonva>
             {isSelected && (
                 <Transformer
                     ref={trRef}
@@ -68,7 +62,7 @@ export default function Image({ shapeProps, onSelect, isSelected, onChange }) {
     );
 }
 
-export function ImageSetting({ onChange, component }) {
+export function TextSetting({ onChange, component }) {
     const onInputsChange = (e) => {
         var copyComponent = component;
         copyComponent[e.target.attributes.name.value] = e.target.value;
@@ -78,17 +72,53 @@ export function ImageSetting({ onChange, component }) {
     return (
         <div className={`${style.setting} widget`}>
             <div>
-                <label className="label">لینک عکس:</label>
+                <label className="label">متن:</label>
                 <input
-                    style={{
-                        direction: "ltr",
-                    }}
-                    name="url"
+                    name="text"
                     type="text"
-                    value={component.url}
+                    value={component.text}
                     onChange={(e) => onInputsChange(e)}
                     className="input"
                 ></input>
+            </div>
+            <div>
+                <label className="label">سایز متن:</label>
+                <input
+                    name="fontSize"
+                    type="number"
+                    value={component.fontSize}
+                    onChange={(e) => onInputsChange(e)}
+                    className="input"
+                ></input>
+            </div>
+            <div>
+                <label className="label">ارتفاع خط:</label>
+                <input
+                    name="lineHeight"
+                    type="number"
+                    value={component.lineHeight}
+                    onChange={(e) => onInputsChange(e)}
+                    className="input"
+                ></input>
+            </div>
+            <div>
+                <label className="label">رنگ:</label>
+                <input
+                    name="fill"
+                    type="text"
+                    placeholder="کد رنگی یا اسم رنگ به لاتین"
+                    value={component.fill}
+                    onChange={(e) => onInputsChange(e)}
+                    className="input"
+                ></input>
+            </div>
+            <div>
+                <label className="label">چینش:</label>
+                <select name="align" value={component.align} onChange={(e) => onInputsChange(e)} className="input">
+                    <option value="right">راست چین</option>
+                    <option value="left">چپ چین</option>
+                    <option value="center">وسط چین</option>
+                </select>
             </div>
             <div>
                 <label className="label">طول:</label>
@@ -114,24 +144,23 @@ export function ImageSetting({ onChange, component }) {
     );
 }
 
-export function ImageDefault({ onClick }) {
-    const def = {
-        id: uid(),
-        component: Image,
-        componentSetting: ImageSetting,
-        url: "https://konvajs.github.io/assets/yoda.jpg",
-        x: 50,
-        y: 50,
-    };
+export const TextDefault = {
+    id: uid(),
+    component: Text,
+    componentSetting: TextSetting,
+    text: "متن جدید",
+    fontSize: 36,
+    lineHeight: 1.1,
+    fontStyle: "bold",
+    fontFamily: "Vazirmatn",
+    align: "right",
+    // stroke: "white",
+    // strokeWidth: 10,
+    fill: "black",
+    width: 170,
+    height: 40,
+    x: 10,
+    y: 10,
+};
 
-    return (
-        <Button
-            className={`${style.button} widget`}
-            onClick={() => {
-                onClick(def);
-            }}
-        >
-            اضافه کردن عکس
-        </Button>
-    );
-}
+export default TextDefault;

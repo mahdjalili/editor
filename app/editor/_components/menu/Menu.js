@@ -28,7 +28,9 @@ export default function Menu() {
         <section className="flex h-full w-full">
             <div className="flex flex-col w-40 h-full">
                 {menu.map((item) => (
-                    <Button onClick={() => setSelect(item.key)}>{item.name}</Button>
+                    <Button key={item.key} onClick={() => setSelect(item.key)}>
+                        {item.name}
+                    </Button>
                 ))}
             </div>
             <div className="h-full flex-grow">

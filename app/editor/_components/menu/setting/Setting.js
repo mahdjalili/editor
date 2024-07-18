@@ -1,16 +1,16 @@
 "use client";
 
 import style from "./Setting.module.css";
+import { Button } from "antd";
 
 import { useContext } from "react";
-
-import { TemplatesContext } from "@/providers/TemplateProvider";
+import { EditorContext } from "@/providers/EditorProvider";
 
 export default function Setting() {
-    const templatesContext = useContext(TemplatesContext);
+    const editorContext = useContext(EditorContext);
 
-    const [components, setComponents] = templatesContext.components;
-    const componentList = templatesContext.componentList;
+    const [layers, setLayers] = editorContext.layers;
+    const ListOfLayers = editorContext.ListOfLayers;
 
     return (
         <div className={style.wrapper}>
@@ -18,27 +18,31 @@ export default function Setting() {
                 <h2>تنظیمات</h2>
             </header>
             <div className={style.list}>
-                {components.map((component, index) => (
-                    <component.componentSetting
+                {layers.map((layer, index) => (
+                    <layer.componentSetting
                         key={`key-${index}`}
-                        component={component}
+                        component={layer}
                         onChange={(newData) => {
-                            const newComponents = components.slice();
+                            const newComponents = layers.slice();
                             newComponents[index] = newData;
-                            setComponents(newComponents);
+                            setLayers(newComponents);
                         }}
-                    ></component.componentSetting>
+                    ></layer.componentSetting>
                 ))}
             </div>
             <div className={style.add}>
-                {componentList.map((component, index) => (
-                    <component.component
-                        key={index}
-                        onClick={(data) => {
-                            setComponents((prev) => [...prev, data]);
-                        }}
-                    ></component.component>
-                ))}
+                {Object.keys(ListOfLayers).map((layer, index) => {
+                    const defaultValue = ListOfLayers[layer];
+
+                    return (
+                        <Button
+                            key={index}
+                            onClick={() => {
+                                setLayers((prev) => [...prev, defaultValue]);
+                            }}
+                        ></Button>
+                    );
+                })}
             </div>
         </div>
     );

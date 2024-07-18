@@ -1,11 +1,11 @@
 "use client";
 
-import { TemplatesProvider } from "@/providers/TemplateProvider";
+import { EditorProvider } from "@/providers/EditorProvider";
 
 export default function Providers({ children }) {
     return (
         <>
-            <TemplatesProvider>{children}</TemplatesProvider>
+            <EditorProvider>{children}</EditorProvider>
         </>
     );
 }

@@ -4,7 +4,7 @@ import style from "./templates.module.css";
 
 import { useContext } from "react";
 
-import { TemplatesContext } from "@/providers/TemplateProvider";
+import { TemplatesContext } from "@/providers/EditorProvider";
 
 export default function Templates() {
     const templatesContext = useContext(TemplatesContext);
