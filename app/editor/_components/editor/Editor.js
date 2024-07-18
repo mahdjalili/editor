@@ -22,16 +22,7 @@ export default function Editor() {
         }
     };
 
-    const canvasSize =
-        selectedTemplate.ratio <= 1
-            ? {
-                  width: (window.innerHeight - 80) * selectedTemplate.ratio,
-                  height: window.innerHeight - 80,
-              }
-            : {
-                  width: window.innerWidth / 2 - 80,
-                  height: (window.innerWidth / 2 - 80) / selectedTemplate.ratio,
-              };
+    const canvasSize = selectedTemplate.canvasSize(700);
 
     return (
         <div className={style.wrapper}>
