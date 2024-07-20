@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@xyflow/react/dist/style.css";
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Providers from "@/providers/Providers";

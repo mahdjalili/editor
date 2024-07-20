@@ -1,10 +1,17 @@
-import { useState } from "react";
+import styles from "./menu.module.css";
+import { useState, useContext } from "react";
 
-import Setting from "./setting/Setting";
+import { EditorContext } from "@/providers/EditorProvider";
+
+import Setting from "./layers/Layers";
 import Templates from "./templates/Templates";
-import { Button } from "antd";
+import { Divider } from "antd";
 
 export default function Menu() {
+    const editorContext = useContext(EditorContext);
+    const listOfLayers = editorContext.listOfLayers;
+    const [layers, setLayers] = editorContext.layers;
+
     const [select, setSelect] = useState(0);
 
     const menu = [
@@ -26,14 +33,32 @@ export default function Menu() {
 
     return (
         <section className="flex h-full w-full">
-            <div className="flex flex-col w-40 h-full">
+            <div className={styles.menu}>
                 {menu.map((item) => (
-                    <Button key={item.key} onClick={() => setSelect(item.key)}>
+                    <button className={styles.item} key={item.key} onClick={() => setSelect(item.key)}>
                         {item.name}
-                    </Button>
+                    </button>
                 ))}
+
+                <Divider></Divider>
+
+                {Object.keys(listOfLayers).map((layer, index) => {
+                    const defaultValue = listOfLayers[layer];
+
+                    return (
+                        <button
+                            className={styles.item}
+                            key={index}
+                            onClick={() => {
+                                setLayers((prev) => [...prev, defaultValue]);
+                            }}
+                        >
+                            {defaultValue.name}
+                        </button>
+                    );
+                })}
             </div>
-            <div className="h-full flex-grow">
+            <div className="h-full flex-grow p-3">
                 <Page></Page>
             </div>
         </section>

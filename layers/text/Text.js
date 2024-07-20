@@ -1,5 +1,7 @@
 import style from "./text.module.css";
 
+import { Card, Input, InputNumber, Select, ColorPicker } from "antd";
+
 import { useEffect, useRef } from "react";
 import { Text as TextKonva, Transformer } from "react-konva";
 import { uid } from "uid";
@@ -23,12 +25,19 @@ export function Text({ shapeProps, onSelect, isSelected, onChange }) {
                 ref={shapeRef}
                 {...shapeProps}
                 draggable
+                onDragStart={(e) => {
+                    e.cancelBubble = true;
+                }}
                 onDragEnd={(e) => {
+                    e.cancelBubble = true;
                     onChange({
                         ...shapeProps,
                         x: e.target.x(),
                         y: e.target.y(),
                     });
+                }}
+                onDragMove={(e) => {
+                    e.cancelBubble = true;
                 }}
                 onTransform={(e) => {
                     const node = shapeRef.current;
@@ -63,88 +72,54 @@ export function Text({ shapeProps, onSelect, isSelected, onChange }) {
 }
 
 export function TextSetting({ onChange, component }) {
-    const onInputsChange = (e) => {
+    const onInputsChange = (name, value) => {
         var copyComponent = component;
-        copyComponent[e.target.attributes.name.value] = e.target.value;
+        copyComponent[name] = value;
         onChange(copyComponent);
     };
 
     return (
-        <div className={`${style.setting} widget`}>
-            <div>
-                <label className="label">متن:</label>
-                <input
-                    name="text"
-                    type="text"
-                    value={component.text}
-                    onChange={(e) => onInputsChange(e)}
-                    className="input"
-                ></input>
-            </div>
-            <div>
-                <label className="label">سایز متن:</label>
-                <input
-                    name="fontSize"
-                    type="number"
-                    value={component.fontSize}
-                    onChange={(e) => onInputsChange(e)}
-                    className="input"
-                ></input>
-            </div>
-            <div>
-                <label className="label">ارتفاع خط:</label>
-                <input
-                    name="lineHeight"
-                    type="number"
-                    value={component.lineHeight}
-                    onChange={(e) => onInputsChange(e)}
-                    className="input"
-                ></input>
-            </div>
-            <div>
-                <label className="label">رنگ:</label>
-                <input
-                    name="fill"
-                    type="text"
-                    placeholder="کد رنگی یا اسم رنگ به لاتین"
-                    value={component.fill}
-                    onChange={(e) => onInputsChange(e)}
-                    className="input"
-                ></input>
-            </div>
-            <div>
-                <label className="label">چینش:</label>
-                <select name="align" value={component.align} onChange={(e) => onInputsChange(e)} className="input">
-                    <option value="right">راست چین</option>
-                    <option value="left">چپ چین</option>
-                    <option value="center">وسط چین</option>
-                </select>
-            </div>
-            <div>
-                <label className="label">طول:</label>
-                <input
-                    name="width"
-                    type="number"
-                    value={component.width}
-                    onChange={(e) => onInputsChange(e)}
-                    className="input"
-                ></input>
-            </div>
-            <div>
-                <label className="label">عرض:</label>
-                <input
-                    name="height"
-                    type="number"
-                    value={component.height}
-                    onChange={(e) => onInputsChange(e)}
-                    className="input"
-                ></input>
-            </div>
-        </div>
+        <Card>
+            <label className="label">متن:</label>
+            <Input value={component.text} onChange={(e) => onInputsChange("text", e.target.value)}></Input>
+
+            <label className="label">سایز متن:</label>
+            <InputNumber
+                value={component.fontSize}
+                onChange={(value) => onInputsChange("fontSize", value)}
+            ></InputNumber>
+
+            <label className="label">ارتفاع خط:</label>
+            <InputNumber
+                value={component.lineHeight}
+                onChange={(value) => onInputsChange("lineHeight", value)}
+            ></InputNumber>
+
+            <label className="label">رنگ:</label>
+            <ColorPicker
+                value={component.fill}
+                onChangeComplete={(value) => onInputsChange("fill", value)}
+                showText
+            ></ColorPicker>
+
+            <label className="label">چینش:</label>
+            <Select value={component.align} onChange={(value) => onInputsChange("align", value)}>
+                <Select.Option value="right">راست چین</Select.Option>
+                <Select.Option value="left">چپ چین</Select.Option>
+                <Select.Option value="center">وسط چین</Select.Option>
+            </Select>
+
+            <label className="label">طول:</label>
+            <InputNumber value={component.width} onChange={(value) => onInputsChange("width", value)}></InputNumber>
+
+            <label className="label">عرض:</label>
+            <InputNumber value={component.height} onChange={(value) => onInputsChange("height", value)}></InputNumber>
+        </Card>
     );
 }
 
 export const TextDefault = {
+    name: "متن",
     id: uid(),
     component: Text,
     componentSetting: TextSetting,

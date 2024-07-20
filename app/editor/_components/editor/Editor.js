@@ -2,13 +2,35 @@
 
 import style from "./Editor.module.css";
 
+import { ReactFlow, Background, Controls } from "@xyflow/react";
 import { useState, useEffect, useContext } from "react";
-
 import { Stage, Layer, Label } from "react-konva";
 
 import { EditorContext } from "@/providers/EditorProvider";
 
 export default function Editor() {
+    const nodeTypes = { template: Template };
+
+    const initialNodes = [
+        {
+            id: "template-1",
+            type: "template",
+            position: { x: 0, y: 0 },
+            dragging: false,
+        },
+    ];
+
+    return (
+        <div className={style.wrapper}>
+            {/* <ReactFlow colorMode="dark" fitView nodes={initialNodes} nodeTypes={nodeTypes} style={{ height: "100%" }}>
+                <Background />
+            </ReactFlow> */}
+            <Template></Template>
+        </div>
+    );
+}
+
+export const Template = () => {
     const editorProvider = useContext(EditorContext);
 
     const [layers, setLayers] = editorProvider.layers;
@@ -25,35 +47,33 @@ export default function Editor() {
     const canvasSize = selectedTemplate.canvasSize(700);
 
     return (
-        <div className={style.wrapper}>
-            <Stage
-                width={canvasSize.width}
-                height={canvasSize.height}
-                onMouseDown={checkDeselect}
-                onTouchStart={checkDeselect}
-                className={`${style.stage} widget`}
-            >
-                <Layer>
-                    <Label></Label>
-                    {layers.map((layer, index) => (
-                        <layer.component
-                            key={`key-${layer.id}`}
-                            width={canvasSize.width}
-                            height={canvasSize.height}
-                            shapeProps={layer}
-                            isSelected={layer.id === selectedId}
-                            onSelect={() => {
-                                setSelectedId(layer.id);
-                            }}
-                            onChange={(newData) => {
-                                const newLayers = layers.slice();
-                                newLayers[index] = newData;
-                                setLayers(newLayers);
-                            }}
-                        ></layer.component>
-                    ))}
-                </Layer>
-            </Stage>
-        </div>
+        <Stage
+            width={canvasSize.width}
+            height={canvasSize.height}
+            onMouseDown={checkDeselect}
+            onTouchStart={checkDeselect}
+            className={`${style.stage} widget`}
+        >
+            <Layer>
+                <Label></Label>
+                {layers.map((layer, index) => (
+                    <layer.component
+                        key={`key-${layer.id}`}
+                        width={canvasSize.width}
+                        height={canvasSize.height}
+                        shapeProps={layer}
+                        isSelected={layer.id === selectedId}
+                        onSelect={() => {
+                            setSelectedId(layer.id);
+                        }}
+                        onChange={(newData) => {
+                            const newLayers = layers.slice();
+                            newLayers[index] = newData;
+                            setLayers(newLayers);
+                        }}
+                    ></layer.component>
+                ))}
+            </Layer>
+        </Stage>
     );
-}
+};

@@ -1,6 +1,6 @@
 "use client";
 
-import style from "./Setting.module.css";
+import style from "./layers.module.css";
 import { Button } from "antd";
 
 import { useContext } from "react";
@@ -10,13 +10,10 @@ export default function Setting() {
     const editorContext = useContext(EditorContext);
 
     const [layers, setLayers] = editorContext.layers;
-    const ListOfLayers = editorContext.ListOfLayers;
+    const listOfLayers = editorContext.listOfLayers;
 
     return (
         <div className={style.wrapper}>
-            <header>
-                <h2>تنظیمات</h2>
-            </header>
             <div className={style.list}>
                 {layers.map((layer, index) => (
                     <layer.componentSetting
@@ -29,20 +26,6 @@ export default function Setting() {
                         }}
                     ></layer.componentSetting>
                 ))}
-            </div>
-            <div className={style.add}>
-                {Object.keys(ListOfLayers).map((layer, index) => {
-                    const defaultValue = ListOfLayers[layer];
-
-                    return (
-                        <Button
-                            key={index}
-                            onClick={() => {
-                                setLayers((prev) => [...prev, defaultValue]);
-                            }}
-                        ></Button>
-                    );
-                })}
             </div>
         </div>
     );

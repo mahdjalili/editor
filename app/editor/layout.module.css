@@ -1,0 +1,11 @@
+.header {
+    height: 52px !important;
+    background-color: var(--ant-color-bg-container) !important;
+    border-bottom: var(--ant-line-width) solid var(--ant-color-border-secondary);
+}
+.sider {
+    border-left: var(--ant-line-width) solid var(--ant-color-border-secondary);
+    overflow-y: auto;
+    height: 100%;
+    background-color: var(--ant-color-bg-container) !important;
+}

@@ -22,6 +22,7 @@ export function BackgroundSetting() {
 }
 
 export const BackgroundDefault = {
+    name: "پس زمینه",
     id: "1",
     component: Background,
     componentSetting: BackgroundSetting,

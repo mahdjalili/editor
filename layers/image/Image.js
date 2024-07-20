@@ -1,6 +1,8 @@
 import style from "./image.module.css";
-
 import { useEffect, useRef } from "react";
+
+import { Card, Input, InputNumber } from "antd";
+
 import { Image as ImageKonva, Transformer } from "react-konva";
 import useImage from "use-image";
 import { uid } from "uid";
@@ -66,57 +68,35 @@ export function Image({ shapeProps, onSelect, isSelected, onChange }) {
     );
 }
 
-export function ImageSetting({ onChange, layer }) {
-    const onInputsChange = (e) => {
+export function ImageSetting({ onChange, component }) {
+    const onInputsChange = (name, value) => {
         var copyComponent = component;
-        copyComponent[e.target.attributes.name.value] = e.target.value;
+        copyComponent[name] = value;
         onChange(copyComponent);
     };
 
     return (
-        <div className={`${style.setting} widget`}>
-            <div>
-                <label className="label">لینک عکس:</label>
-                <input
-                    style={{
-                        direction: "ltr",
-                    }}
-                    name="url"
-                    type="text"
-                    value={component.url}
-                    onChange={(e) => onInputsChange(e)}
-                    className="input"
-                ></input>
-            </div>
-            <div>
-                <label className="label">طول:</label>
-                <input
-                    name="width"
-                    type="number"
-                    value={component.width}
-                    onChange={(e) => onInputsChange(e)}
-                    className="input"
-                ></input>
-            </div>
-            <div>
-                <label className="label">عرض:</label>
-                <input
-                    name="height"
-                    type="number"
-                    value={component.height}
-                    onChange={(e) => onInputsChange(e)}
-                    className="input"
-                ></input>
-            </div>
-        </div>
+        <Card>
+            <label className="label">لینک عکس:</label>
+            <Input value={component.url} onChange={(e) => onInputsChange("url", e.target.value)}></Input>
+
+            <label className="label">طول:</label>
+            <InputNumber value={component.width} onChange={(value) => onInputsChange("width", value)}></InputNumber>
+
+            <label className="label">عرض:</label>
+            <InputNumber value={component.height} onChange={(value) => onInputsChange("height", value)}></InputNumber>
+        </Card>
     );
 }
 
 export const ImageDefault = {
+    name: "تصویر",
     id: uid(),
     component: Image,
     componentSetting: ImageSetting,
     url: "https://konvajs.github.io/assets/yoda.jpg",
+    width: 100,
+    height: 100,
     x: 50,
     y: 50,
 };

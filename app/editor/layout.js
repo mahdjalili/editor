@@ -1,19 +1,22 @@
 "use client";
 
+import styles from "./layout.module.css";
+
 import Menu from "./_components/menu/Menu";
-import { Layout } from "antd";
+import { Layout, theme } from "antd";
 
 export default function layout({ children }) {
-    return (
-        <Layout className="flex items-center justify-between h-full w-full">
-            <Layout.Sider width="25%" className="h-full ant-layout-sider-light">
-                <Menu></Menu>
-            </Layout.Sider>
+    const { token } = theme.useToken();
 
-            <Layout>
-                {/* <Layout.Header>Header</Layout.Header> */}
+    return (
+        <Layout className="h-full w-full">
+            <Layout.Header className={styles.header}></Layout.Header>
+
+            <Layout className="h-full">
+                <Layout.Sider className={styles.sider} width={"20%"}>
+                    <Menu></Menu>
+                </Layout.Sider>
                 <Layout.Content>{children}</Layout.Content>
-                {/* <Layout.Footer>Footer</Layout.Footer> */}
             </Layout>
         </Layout>
     );
