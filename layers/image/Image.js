@@ -8,7 +8,7 @@ import useImage from "use-image";
 import { uid } from "uid";
 
 export function Image({ shapeProps, onSelect, isSelected, onChange }) {
-    const [image] = useImage(shapeProps.url);
+    const [image] = useImage(shapeProps.src, "anonymous");
 
     const shapeRef = useRef();
     const trRef = useRef();
@@ -19,6 +19,12 @@ export function Image({ shapeProps, onSelect, isSelected, onChange }) {
             trRef.current.getLayer().batchDraw();
         }
     }, [isSelected]);
+
+    useEffect(() => {
+        if (image) {
+            shapeRef.current.getLayer().batchDraw();
+        }
+    }, [image]);
 
     return (
         <>
@@ -78,7 +84,7 @@ export function ImageSetting({ onChange, component }) {
     return (
         <Card>
             <label className="label">لینک عکس:</label>
-            <Input value={component.url} onChange={(e) => onInputsChange("url", e.target.value)}></Input>
+            <Input value={component.src} onChange={(e) => onInputsChange("src", e.target.value)}></Input>
 
             <label className="label">طول:</label>
             <InputNumber value={component.width} onChange={(value) => onInputsChange("width", value)}></InputNumber>
@@ -90,15 +96,15 @@ export function ImageSetting({ onChange, component }) {
 }
 
 export const ImageDefault = {
+    // id: uid(),
     name: "تصویر",
-    id: uid(),
     component: Image,
     componentSetting: ImageSetting,
-    url: "https://konvajs.github.io/assets/yoda.jpg",
-    width: 100,
-    height: 100,
-    x: 50,
-    y: 50,
+    // url: "https://konvajs.github.io/assets/yoda.jpg",
+    // width: 100,
+    // height: 100,
+    // x: 50,
+    // y: 50,
 };
 
 export default ImageDefault;

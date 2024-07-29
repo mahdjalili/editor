@@ -1,12 +1,12 @@
 import Layers from "@/layers/layers";
-const { Background, Text } = Layers;
+const { Background, Text, Image } = Layers;
 
-export const templates = [
-    {
+import templatesJson from "./templates.json" assert { type: "json" };
+
+const templatesConverter = (template) => {
+    return {
         id: "1",
-        name: "دریک",
-        image: "https://imgflip.com/s/meme/Drake-Hotline-Bling.jpg",
-        ratio: 1,
+        ratio: template.width / template.height,
         canvasSize: function (size) {
             if (this.ratio <= 1) {
                 return {
@@ -19,9 +19,33 @@ export const templates = [
                     height: size,
                 };
         },
+        background: template.pages[0].background,
+        ...template,
+        layers: template.pages[0].children.map((layer) => {
+            if (layer.type == "svg" || layer.type == "image") {
+                return {
+                    ...Image,
+                    id: layer.id,
+                    src: layer.src,
+                    width: layer.width,
+                    height: layer.height,
+                    x: layer.x,
+                    y: layer.y,
+                    rotation: layer.rotation,
+                    stroke: layer.borderColor,
+                    strokeWidth: layer.borderSize,
+                    opacity: layer.opacity,
+                };
+            } else if (layer.type == "text") {
+                return {
+                    ...Text,
+                    ...layer,
+                };
+            } else return { ...layer };
+        }),
+    };
+};
 
-        layers: [{ ...Background }, { ...Text }],
-    },
-];
+export const templates = [templatesConverter(templatesJson[80])];
 
 export default templates;

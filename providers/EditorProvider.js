@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useRef } from "react";
 
 import { layers as listOfLayers } from "@/layers/layers";
 import templates from "@/templates/templates";
@@ -7,6 +7,7 @@ export const EditorContext = createContext();
 
 export const EditorProvider = (props) => {
     const editorContext = {};
+    editorContext.stageRef = useRef(null);
     editorContext.listOfLayers = listOfLayers;
     editorContext.templates = useState(templates);
     editorContext.selectedTemplate = useState(templates[0]);

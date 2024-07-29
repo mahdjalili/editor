@@ -1,0 +1,26 @@
+.menu {
+    padding: var(--ant-padding-xxs);
+    border-left: var(--ant-line-width) solid var(--ant-color-border-secondary);
+    width: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    border-radius: var(--ant-border-radius);
+    font-size: var(--ant-font-size-sm);
+    color: var(--ant-color-text-base);
+    aspect-ratio: 1/1;
+    background-color: var(--ant-color-bg-container);
+}
+.item:hover {
+    background-color: var(--ant-color-bg-spotlight);
+}

@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@fonts/font-awesome/all.css";
 import "@xyflow/react/dist/style.css";
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";

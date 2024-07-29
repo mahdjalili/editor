@@ -81,12 +81,13 @@ export function TextSetting({ onChange, component }) {
     return (
         <Card>
             <label className="label">متن:</label>
-            <Input value={component.text} onChange={(e) => onInputsChange("text", e.target.value)}></Input>
+            <Input value={component.text} onChange={(e) => onInputsChange("text", e.target.value)} block></Input>
 
             <label className="label">سایز متن:</label>
             <InputNumber
                 value={component.fontSize}
                 onChange={(value) => onInputsChange("fontSize", value)}
+                block
             ></InputNumber>
 
             <label className="label">ارتفاع خط:</label>
@@ -119,23 +120,22 @@ export function TextSetting({ onChange, component }) {
 }
 
 export const TextDefault = {
+    // id: uid(),
     name: "متن",
-    id: uid(),
     component: Text,
     componentSetting: TextSetting,
-    text: "متن جدید",
-    fontSize: 36,
-    lineHeight: 1.1,
-    fontStyle: "bold",
     fontFamily: "Vazirmatn",
-    align: "right",
+    // text: "متن جدید",
+    // fontSize: 36,
+    // lineHeight: 1.1,
+    // fontStyle: "bold",
     // stroke: "white",
     // strokeWidth: 10,
-    fill: "black",
-    width: 170,
-    height: 40,
-    x: 10,
-    y: 10,
+    // fill: "black",
+    // width: 170,
+    // height: 40,
+    // x: 10,
+    // y: 10,
 };
 
 export default TextDefault;
