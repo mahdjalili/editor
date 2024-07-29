@@ -99,7 +99,7 @@ export function TextSetting({ onChange, component }) {
             <label className="label">رنگ:</label>
             <ColorPicker
                 value={component.fill}
-                onChangeComplete={(value) => onInputsChange("fill", value)}
+                onChangeComplete={(value) => onInputsChange("fill", value.toRgbString())}
                 showText
             ></ColorPicker>
 

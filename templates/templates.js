@@ -35,6 +35,7 @@ const templatesConverter = (template) => {
                     stroke: layer.borderColor,
                     strokeWidth: layer.borderSize,
                     opacity: layer.opacity,
+                    keepRatio: layer.keepRatio,
                 };
             } else if (layer.type == "text") {
                 return {
@@ -46,6 +47,6 @@ const templatesConverter = (template) => {
     };
 };
 
-export const templates = [templatesConverter(templatesJson[80])];
+export const templates = [templatesConverter(templatesJson[0])];
 
 export default templates;
