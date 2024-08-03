@@ -2,7 +2,9 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./*"],
+      "@layers/*": ["./layers/*"],
       "@fonts/*": ["./public/fonts/*"],
+      "@hooks/*": ["./hooks/*"],
       "@studio/*": ["./app/studio/_components/*"]
     }
   }

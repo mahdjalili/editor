@@ -1,7 +1,8 @@
 import Layers from "@/layers/layers";
-const { Background, Text, Image } = Layers;
+const { Background, Text, Image, Shape } = Layers;
 
 import templatesJson from "./templates.json" assert { type: "json" };
+import psdTemplate from "./psd.json" assert { type: "json" };
 
 const templatesConverter = (template) => {
     return {
@@ -19,10 +20,10 @@ const templatesConverter = (template) => {
                     height: size,
                 };
         },
-        background: template.pages[0].background,
+        background: template.pages[0]?.background,
         ...template,
         layers: template.pages[0].children.map((layer) => {
-            if (layer.type == "svg" || layer.type == "image") {
+            if (layer.type == "image") {
                 return {
                     ...Image,
                     id: layer.id,
@@ -36,6 +37,22 @@ const templatesConverter = (template) => {
                     strokeWidth: layer.borderSize,
                     opacity: layer.opacity,
                     keepRatio: layer.keepRatio,
+                };
+            } else if (layer.type == "svg") {
+                return {
+                    ...Shape,
+                    id: layer.id,
+                    src: layer.src,
+                    width: layer.width,
+                    height: layer.height,
+                    x: layer.x,
+                    y: layer.y,
+                    rotation: layer.rotation,
+                    stroke: layer.borderColor,
+                    strokeWidth: layer.borderSize,
+                    opacity: layer.opacity,
+                    keepRatio: layer.keepRatio,
+                    colorsReplace: layer.colorsReplace,
                 };
             } else if (layer.type == "text") {
                 return {

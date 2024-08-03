@@ -1,13 +1,14 @@
-import style from "./image.module.css";
 import { useEffect, useRef } from "react";
 
-import { Card, Input, InputNumber } from "antd";
+import { Card, Input, InputNumber, Collapse, ColorPicker } from "antd";
 
 import { Image as ImageKonva, Transformer } from "react-konva";
 import useImage from "use-image";
+import { useSvgColors, replaceSvgColor, useReplaceSvgColors } from "@/hooks/useSvg";
 
-export function Image({ shapeProps, onSelect, isSelected, onChange }) {
-    const [image] = useImage(shapeProps.src, "anonymous");
+export function Shape({ shapeProps, onSelect, isSelected, onChange }) {
+    const src = useReplaceSvgColors(shapeProps.src, shapeProps.colorsReplace);
+    const [image] = useImage(src, "anonymous");
 
     const shapeRef = useRef();
     const trRef = useRef();
@@ -73,7 +74,15 @@ export function Image({ shapeProps, onSelect, isSelected, onChange }) {
     );
 }
 
-export function ImageSetting({ onChange, component }) {
+export function ShapeSetting({ onChange, component }) {
+    const colors = useSvgColors(component.src);
+
+    const onChangeShapeColor = (newColor, targetColor) => {
+        var copyComponent = component;
+        copyComponent.src = replaceSvgColor(component.src, targetColor, newColor);
+        onChange(copyComponent);
+    };
+
     const onInputsChange = (name, value) => {
         var copyComponent = component;
         copyComponent[name] = value;
@@ -90,15 +99,27 @@ export function ImageSetting({ onChange, component }) {
 
             <label className="label">عرض:</label>
             <InputNumber value={component.height} onChange={(value) => onInputsChange("height", value)}></InputNumber>
+
+            <Collapse>
+                <Collapse.Panel header="رنگ های شکل">
+                    {colors.map((color, index) => (
+                        <ColorPicker
+                            key={index}
+                            defaultValue={color}
+                            onChangeComplete={(newColor) => onChangeShapeColor(newColor.toRgbString(), color)}
+                        ></ColorPicker>
+                    ))}
+                </Collapse.Panel>
+            </Collapse>
         </Card>
     );
 }
 
 export const ImageDefault = {
     // id: uid(),
-    name: "تصویر",
-    component: Image,
-    componentSetting: ImageSetting,
+    name: "شکل",
+    component: Shape,
+    componentSetting: ShapeSetting,
     // url: "https://konvajs.github.io/assets/yoda.jpg",
     // width: 100,
     // height: 100,
