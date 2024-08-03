@@ -4,7 +4,7 @@ import style from "./Editor.module.css";
 
 import { ReactFlow, Background, Controls } from "@xyflow/react";
 import { useState, useEffect, useContext } from "react";
-import { Stage, Layer, Label } from "react-konva";
+import { Stage, Layer, Rect } from "react-konva";
 
 import { EditorContext } from "@/providers/EditorProvider";
 
@@ -54,13 +54,16 @@ export const Template = () => {
             onMouseDown={checkDeselect}
             onTouchStart={checkDeselect}
             ref={stageRef}
-            className={`${style.stage} widget`}
-            style={{
-                backgroundColor: selectedTemplate.background,
-            }}
+            className={style.stage}
         >
             <Layer>
-                <Label></Label>
+                <Rect
+                    x={0}
+                    y={0}
+                    width={selectedTemplate.width}
+                    height={selectedTemplate.height}
+                    fill={selectedTemplate.background} // Change this to your desired background color
+                />
                 {layers.map((layer, index) => (
                     <layer.component
                         key={`key-${layer.id}`}
