@@ -64,6 +64,6 @@ const templatesConverter = (template) => {
     };
 };
 
-export const templates = [templatesConverter(templatesJson[10])];
+export const templates = [templatesConverter(psdTemplate[0])];
 
 export default templates;

@@ -35,7 +35,11 @@ export const Item = (props) => {
     return (
         <Card
             cover={<Image src={props.image}></Image>}
-            actions={[<div onClick={() => changeTemplate(props)}>انتخاب</div>]}
+            actions={[
+                <div key={"action"} onClick={() => changeTemplate(props)}>
+                    انتخاب
+                </div>,
+            ]}
         >
             <Card.Meta title={props.name}></Card.Meta>
         </Card>

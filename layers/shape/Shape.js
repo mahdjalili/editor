@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 
 import { Card, Input, InputNumber, Collapse, ColorPicker } from "antd";

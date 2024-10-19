@@ -1,3 +1,5 @@
+"use client";
+
 import style from "./Background.module.css";
 import { Image as ImageKonva } from "react-konva";
 import useImage from "use-image";

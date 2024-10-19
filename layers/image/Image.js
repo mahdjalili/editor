@@ -1,3 +1,5 @@
+"use client";
+
 import style from "./image.module.css";
 import { useEffect, useRef } from "react";
 

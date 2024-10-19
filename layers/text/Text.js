@@ -1,3 +1,5 @@
+"use client";
+
 import style from "./text.module.css";
 
 import { Card, Input, InputNumber, Select, ColorPicker } from "antd";
