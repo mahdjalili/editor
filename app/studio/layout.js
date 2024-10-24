@@ -9,7 +9,7 @@ import { Layout } from "antd";
 
 export default function layout({ children }) {
     return (
-        <Layout className="h-full w-full">
+        <Layout className="h-screen w-full">
             <Layout.Header className={styles.header}>
                 <Header></Header>
             </Layout.Header>
