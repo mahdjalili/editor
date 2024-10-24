@@ -3,6 +3,7 @@ const { Background, Text, Image, Shape } = Layers;
 
 import templatesJson from "./templates.json" assert { type: "json" };
 import psdTemplate from "./psd.json" assert { type: "json" };
+import exampleTemplate from "./example.json" assert { type: "json" };
 
 const templatesConverter = (template) => {
     return {
@@ -64,6 +65,6 @@ const templatesConverter = (template) => {
     };
 };
 
-export const templates = [templatesConverter(psdTemplate[0])];
+export const templates = [exampleTemplate];
 
 export default templates;
