@@ -15,7 +15,7 @@ export default function layout({ children }) {
             </Layout.Header>
 
             <Layout className="h-full">
-                <Layout.Sider className={styles.sider} width={"20%"}>
+                <Layout.Sider className={styles.sider} width={"25%"}>
                     <Menu></Menu>
                 </Layout.Sider>
                 <Layout.Content>{children}</Layout.Content>

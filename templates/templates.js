@@ -65,6 +65,6 @@ const templatesConverter = (template) => {
     };
 };
 
-export const templates = [exampleTemplate];
+export const templates = [templatesConverter(exampleTemplate)];
 
 export default templates;

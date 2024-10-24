@@ -1,7 +1,13 @@
 {
-    "id": "2342342134",
-    "ratio": 1.048951048951049,
-    "width": 1024,
-    "height": 1024,
-    "layers": []
+    "image": "https://api.polotno.com/templates/2021-10-25-youtube-thumbnail-travel-visit.jpg",
+    "ratio": 1.7777777777777777,
+    "width": 720,
+    "height": 720,
+    "fonts": [],
+    "pages": [
+        {
+            "id": "1",
+            "children": []
+        }
+    ]
 }

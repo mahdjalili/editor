@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useRef } from "react";
+import { useState, useEffect, createContext, useRef, useContext } from "react";
 
 import { layers as listOfLayers } from "@/layers/layers";
 import templates from "@/templates/templates";
@@ -16,7 +16,7 @@ export const EditorProvider = (props) => {
     const [selectedTemplate, setSelectedTemplate] = editorContext.selectedTemplate;
     const [layers, setLayers] = editorContext.layers;
 
-    console.log("List of Layer: ", listOfLayers);
+    // console.log("List of Layer: ", listOfLayers);
 
     useEffect(() => {
         setLayers(selectedTemplate.layers);
@@ -27,4 +27,12 @@ export const EditorProvider = (props) => {
     }, [layers]);
 
     return <EditorContext.Provider value={editorContext}>{props.children}</EditorContext.Provider>;
+};
+
+export const useEditor = () => {
+    const context = useContext(EditorContext);
+    if (!context) {
+        throw new Error("useEditor must be used within an EditorProvider");
+    }
+    return context;
 };
