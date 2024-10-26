@@ -22,12 +22,12 @@ export const Template = () => {
     const stageRef = editorContext.stageRef;
     const [layers, setLayers] = editorContext.layers;
     const [selectedTemplate] = editorContext.selectedTemplate;
-    const [selectedId, setSelectedId] = useState();
+    const [selectedId, setSelectedId] = editorContext.selectedLayerId;
 
     const checkDeselect = (e) => {
         const clickedOnEmpty = e.target === e.target.getStage();
         if (clickedOnEmpty) {
-            setSelectedId(null);
+            setSelectedId(null); // Deselect all layers
         }
     };
 
@@ -43,13 +43,13 @@ export const Template = () => {
             className={style.stage}
         >
             <Layer>
-                <Rect
+                {/* <Rect
                     x={0}
                     y={0}
                     width={selectedTemplate.width}
                     height={selectedTemplate.height}
-                    fill={selectedTemplate.background} // Change this to your desired background color
-                />
+                    fill={selectedTemplate.background}
+                /> */}
                 {layers.map((layer, index) => (
                     <layer.component
                         key={`key-${layer.id}`}
@@ -57,6 +57,9 @@ export const Template = () => {
                         height={canvasSize.height}
                         shapeProps={layer}
                         isSelected={layer.id === selectedId}
+                        onDragStart={() => {
+                            setSelectedId(layer.id);
+                        }}
                         onSelect={() => {
                             setSelectedId(layer.id);
                         }}

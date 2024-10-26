@@ -8,7 +8,7 @@ import { Image as ImageKonva, Transformer } from "react-konva";
 import useImage from "use-image";
 import { useSvgColors, replaceSvgColor, useReplaceSvgColors } from "@/hooks/useSvg";
 
-export function Shape({ shapeProps, onSelect, isSelected, onChange }) {
+export function Shape({ shapeProps, onSelect, isSelected, onChange, onDragStart, onDragEnd }) {
     const src = useReplaceSvgColors(shapeProps.src, shapeProps.colorsReplace);
     const [image] = useImage(src, "anonymous");
 
@@ -37,7 +37,10 @@ export function Shape({ shapeProps, onSelect, isSelected, onChange }) {
                 ref={shapeRef}
                 {...shapeProps}
                 draggable
+                onDragStart={onDragStart}
                 onDragEnd={(e) => {
+                    onDragEnd && onDragEnd(e);
+
                     onChange({
                         ...shapeProps,
                         x: e.target.x(),

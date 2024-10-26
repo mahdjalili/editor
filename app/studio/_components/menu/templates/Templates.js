@@ -13,7 +13,7 @@ export default function Templates() {
 
     return (
         <div className={style.wrapper}>
-            <div className={style.list}>
+            <div className="grid grid-cols-2 gap-2">
                 {templates.map((t, index) => (
                     <Item key={index} {...t}></Item>
                 ))}
@@ -34,12 +34,14 @@ export const Item = (props) => {
 
     return (
         <Card
-            cover={<Image src={props.image}></Image>}
+            className="rounded-[var(--ant-border-radius)]"
+            cover={<Image className="rounded-[var(--ant-border-radius)]" src={props.image} alt={props.name}></Image>}
             actions={[
                 <div key={"action"} onClick={() => changeTemplate(props)}>
                     انتخاب
                 </div>,
             ]}
+            bodyStyle={{ padding: 0 }}
         >
             <Card.Meta title={props.name}></Card.Meta>
         </Card>

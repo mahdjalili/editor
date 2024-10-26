@@ -1,14 +1,13 @@
 import styles from "./header.module.css";
 
-import { useContext } from "react";
-
 import { DownloadOutlined } from "@ant-design/icons";
 import { Breadcrumb, Button } from "antd";
-import { EditorContext } from "@/providers/EditorProvider";
+import { useEditor } from "@/providers/EditorProvider";
 
 export default function Header() {
-    const editorContext = useContext(EditorContext);
-    const stageRef = editorContext.stageRef;
+    const editor = useEditor();
+    const stageRef = editor.stageRef;
+    const [, setSelectedLayerId] = editor.selectedLayerId;
 
     const downloadURI = (uri, name) => {
         var link = document.createElement("a");
@@ -20,10 +19,11 @@ export default function Header() {
     };
 
     const handleExport = () => {
-        console.log(stageRef);
-        const uri = stageRef.current.toDataURL();
-        console.log(uri);
-        downloadURI(uri, "stage.png");
+        setSelectedLayerId(null);
+        setTimeout(() => {
+            const uri = stageRef.current.toDataURL();
+            downloadURI(uri, "composite.png");
+        }, 50);
     };
 
     return (

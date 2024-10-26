@@ -12,9 +12,11 @@ export const EditorProvider = (props) => {
     editorContext.templates = useState(templates);
     editorContext.selectedTemplate = useState(templates[0]);
     editorContext.layers = useState(templates[0].layers);
+    editorContext.selectedLayerId = useState(null);
 
     const [selectedTemplate, setSelectedTemplate] = editorContext.selectedTemplate;
     const [layers, setLayers] = editorContext.layers;
+    const [selectedLayerId, setSelectedLayerId] = editorContext.selectedLayerId;
 
     // console.log("List of Layer: ", listOfLayers);
 
@@ -25,6 +27,22 @@ export const EditorProvider = (props) => {
     useEffect(() => {
         console.log("Layers Updated: ", layers);
     }, [layers]);
+
+    // Add a new function to handle layer deletion
+    const handleDeleteLayer = (event) => {
+        if ((event.key === "Delete" || event.key === "Backspace") && selectedLayerId) {
+            setLayers((prevLayers) => prevLayers.filter((layer) => layer.id !== selectedLayerId));
+            setSelectedLayerId(null);
+        }
+    };
+
+    // Add an effect to handle the keydown event
+    useEffect(() => {
+        window.addEventListener("keydown", handleDeleteLayer);
+        return () => {
+            window.removeEventListener("keydown", handleDeleteLayer);
+        };
+    }, [selectedLayerId]);
 
     return <EditorContext.Provider value={editorContext}>{props.children}</EditorContext.Provider>;
 };

@@ -20,25 +20,25 @@ export default function Menu() {
     const menu = [
         {
             key: 0,
-            name: "لایه‌ها",
-            icon: <i className="fa-regular fa-layer-group"></i>,
-            component: Setting,
-        },
-        {
-            key: 1,
             name: "تولید",
             icon: <i className="fa-regular fa-sparkles"></i>,
             component: Generate,
         },
         {
+            key: 1,
+            name: "لایه‌ها",
+            icon: <i className="fa-regular fa-layer-group"></i>,
+            component: Setting,
+        },
+        {
             key: 2,
-            name: "محصولات",
+            name: "محصول",
             icon: <i className="fa-regular fa-mug"></i>,
             component: Products,
         },
         {
             key: 3,
-            name: "شکل‌ها",
+            name: "اشیاء",
             icon: <i className="fa-regular fa-shapes"></i>,
             component: Props,
         },
@@ -53,10 +53,14 @@ export default function Menu() {
     const Page = menu.find((item) => item.key == select).component;
 
     return (
-        <section className="flex h-full w-full">
-            <div className={styles.menu}>
+        <section className="flex h-full w-full relative">
+            <div className={`${styles.menu} sticky top-0`}>
                 {menu.map((item) => (
-                    <button className={styles.item} key={item.key} onClick={() => setSelect(item.key)}>
+                    <button
+                        className={`${styles.item} ${select == item.key && "!bg-[var(--ant-color-bg-spotlight)]"}`}
+                        key={item.key}
+                        onClick={() => setSelect(item.key)}
+                    >
                         <>
                             {item.icon}
                             {item.name}
@@ -82,7 +86,7 @@ export default function Menu() {
                     );
                 })}
             </div>
-            <div className="h-full flex-grow p-3">
+            <div className="h-full flex-grow p-3 overflow-y-auto">
                 <Page></Page>
             </div>
         </section>

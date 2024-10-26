@@ -5,11 +5,8 @@ export default function AntProvider({ children }) {
         cssVar: true,
         hashed: false,
         algorithm: antTheme.darkAlgorithm,
-
-        theme: {
-            token: {
-                fontFamily: "Vazirmatn",
-            },
+        token: {
+            fontFamily: "Vazirmatn",
         },
     };
 

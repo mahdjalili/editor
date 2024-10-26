@@ -14,21 +14,33 @@ export default function Props() {
         queryFn: getProps,
     });
 
-    if (props.isLoading) return <Spin />;
+    if (props.isLoading)
+        return (
+            <div className="w-full h-full flex items-center justify-center">
+                <Spin />
+            </div>
+        );
 
     if (props.isError) return <div>Error</div>;
-
-    console.log(props.data);
 
     return (
         <div>
             {props.data.map((category) => (
                 <>
-                    <div key={category.id}>{category.category}</div>
+                    <h4 key={category.id}>{category.category}</h4>
 
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-3 mb-6">
                         {category.props.map((prop) => (
-                            <Tooltip key={prop._id} title={prop.name}>
+                            <Tooltip
+                                placement="bottom"
+                                key={prop._id}
+                                title={
+                                    <div className="flex flex-col">
+                                        <span className="font-bold">{prop.name}</span>
+                                        <span className="text-xs text-white/70">برای اضافه کردن کلیک کنید.</span>
+                                    </div>
+                                }
+                            >
                                 <Image
                                     onClick={() => {
                                         setLayers((prev) => [
@@ -42,15 +54,17 @@ export default function Props() {
                                         ]);
                                     }}
                                     preview={false}
-                                    className="!border !border-white rounded-md aspect-square object-contain cursor-pointer"
+                                    style={{
+                                        border: "1px solid var(--ant-color-border)",
+                                        transition: "all 0.3s ease",
+                                    }}
+                                    className="hover:border-primary hover:shadow-md hover:scale-105 p-1 rounded-[var(--ant-border-radius)] aspect-square object-contain cursor-pointer"
                                     src={`https://${prop.image.bucket}.storage.c2.liara.space/${prop.image.key}`}
                                     alt={prop.name}
                                 />
                             </Tooltip>
                         ))}
                     </div>
-
-                    <Divider />
                 </>
             ))}
         </div>

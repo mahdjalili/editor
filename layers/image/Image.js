@@ -3,12 +3,12 @@
 import style from "./image.module.css";
 import { useEffect, useRef } from "react";
 
-import { Card, Input, InputNumber } from "antd";
+import { Card, Input, InputNumber, Image as AntImage } from "antd";
 
 import { Image as ImageKonva, Transformer } from "react-konva";
 import useImage from "use-image";
 
-export function Image({ shapeProps, onSelect, isSelected, onChange }) {
+export function Image({ shapeProps, onSelect, isSelected, onChange, onDragStart, onDragEnd }) {
     const [image] = useImage(shapeProps.src, "anonymous");
 
     const shapeRef = useRef();
@@ -36,7 +36,9 @@ export function Image({ shapeProps, onSelect, isSelected, onChange }) {
                 ref={shapeRef}
                 {...shapeProps}
                 draggable
+                onDragStart={onDragStart}
                 onDragEnd={(e) => {
+                    onDragEnd && onDragEnd(e);
                     onChange({
                         ...shapeProps,
                         x: e.target.x(),
@@ -83,15 +85,21 @@ export function ImageSetting({ onChange, component }) {
     };
 
     return (
-        <Card>
+        <Card cover={<AntImage className="aspect-square object-contain" src={component.src} alt="image" />}>
             <label className="label">لینک عکس:</label>
             <Input value={component.src} onChange={(e) => onInputsChange("src", e.target.value)}></Input>
 
             <label className="label">طول:</label>
-            <InputNumber value={component.width} onChange={(value) => onInputsChange("width", value)}></InputNumber>
+            <InputNumber
+                value={component.width}
+                onChange={(value) => onInputsChange("width", Math.floor(value))}
+            ></InputNumber>
 
             <label className="label">عرض:</label>
-            <InputNumber value={component.height} onChange={(value) => onInputsChange("height", value)}></InputNumber>
+            <InputNumber
+                value={component.height}
+                onChange={(value) => onInputsChange("height", Math.floor(value))}
+            ></InputNumber>
         </Card>
     );
 }
