@@ -68,7 +68,7 @@ export default function Menu() {
                     </button>
                 ))}
 
-                <Divider></Divider>
+                <Divider>+</Divider>
 
                 {Object.keys(listOfLayers).map((layer, index) => {
                     const defaultValue = listOfLayers[layer];
@@ -78,9 +78,10 @@ export default function Menu() {
                             className={styles.item}
                             key={index}
                             onClick={() => {
-                                setLayers((prev) => [...prev, defaultValue]);
+                                setLayers((prev) => [...prev, defaultValue.component]);
                             }}
                         >
+                            {defaultValue.icon}
                             {defaultValue.name}
                         </button>
                     );

@@ -1,10 +1,19 @@
 import { Form, Input, Button } from "antd";
 import { useFormik } from "formik";
+import { generate } from "@/api/generate.api";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Generate() {
+    const generateMutation = useMutation({
+        mutationFn: generate,
+    });
+
     const formik = useFormik({
         initialValues: {
             prompt: "",
+        },
+        onSubmit: (values) => {
+            generateMutation.mutate(values);
         },
     });
 
@@ -15,6 +24,7 @@ export default function Generate() {
             </Form.Item>
 
             <Button
+                loading={generateMutation.isPending}
                 icon={<i className="fa-regular fa-sparkles"></i>}
                 type="primary"
                 htmlType="submit"

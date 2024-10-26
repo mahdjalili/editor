@@ -2,7 +2,7 @@
 
 import style from "./layers.module.css";
 
-import { Button } from "antd";
+import { Button, Empty } from "antd";
 import { useContext, useCallback, useRef } from "react";
 import { EditorContext } from "@/providers/EditorProvider";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -39,6 +39,10 @@ export default function Setting() {
         },
         [layers, setLayers]
     );
+
+    if (layers.length === 0) {
+        return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="هیچ لایه‌ای وجود ندارد" />;
+    }
 
     return (
         <DndProvider backend={HTML5Backend} className={style.wrapper}>
@@ -83,7 +87,7 @@ function Layer({ layer, index, moveLayer, removeLayer }) {
 
     return (
         <div ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }} className="cursor-grab relative">
-            <div className="flex justify-between items-center absolute bottom-2 left-2  z-10">
+            <div className="flex justify-between items-center absolute top-2 left-2  z-10">
                 <Button
                     color="danger"
                     icon={<i className="fa-regular fa-trash-can"></i>}
