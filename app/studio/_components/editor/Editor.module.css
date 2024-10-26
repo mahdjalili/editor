@@ -9,4 +9,5 @@
     overflow: hidden;
     border-radius: var(--radius);
     padding: 0;
+    border: 1px solid white;
 }

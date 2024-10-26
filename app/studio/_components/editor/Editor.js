@@ -2,46 +2,32 @@
 
 import style from "./Editor.module.css";
 
-import { ReactFlow, Background, Controls } from "@xyflow/react";
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 import { Stage, Layer, Rect } from "react-konva";
 
-import { EditorContext } from "@/providers/EditorProvider";
+import { useEditor } from "@/providers/EditorProvider";
 
 export default function Editor() {
-    const nodeTypes = { template: Template };
-
-    const initialNodes = [
-        {
-            id: "template-1",
-            type: "template",
-            position: { x: 0, y: 0 },
-        },
-    ];
-
     return (
         <div className={style.wrapper}>
-            {/* <ReactFlow colorMode="dark" fitView nodes={initialNodes} nodeTypes={nodeTypes} style={{ height: "100%" }}>
-                <Background />
-                <Controls />
-            </ReactFlow> */}
-            <Template></Template>
+            <Template />
+            <Result />
         </div>
     );
 }
 
 export const Template = () => {
-    const editorContext = useContext(EditorContext);
+    const editorContext = useEditor();
 
     const stageRef = editorContext.stageRef;
     const [layers, setLayers] = editorContext.layers;
     const [selectedTemplate] = editorContext.selectedTemplate;
-    const [selectedId, setSelectedId] = useState();
+    const [selectedId, setSelectedId] = editorContext.selectedLayerId;
 
     const checkDeselect = (e) => {
         const clickedOnEmpty = e.target === e.target.getStage();
         if (clickedOnEmpty) {
-            setSelectedId(null);
+            setSelectedId(null); // Deselect all layers
         }
     };
 
@@ -57,13 +43,13 @@ export const Template = () => {
             className={style.stage}
         >
             <Layer>
-                <Rect
+                {/* <Rect
                     x={0}
                     y={0}
                     width={selectedTemplate.width}
                     height={selectedTemplate.height}
-                    fill={selectedTemplate.background} // Change this to your desired background color
-                />
+                    fill={selectedTemplate.background}
+                /> */}
                 {layers.map((layer, index) => (
                     <layer.component
                         key={`key-${layer.id}`}
@@ -71,6 +57,9 @@ export const Template = () => {
                         height={canvasSize.height}
                         shapeProps={layer}
                         isSelected={layer.id === selectedId}
+                        onDragStart={() => {
+                            setSelectedId(layer.id);
+                        }}
                         onSelect={() => {
                             setSelectedId(layer.id);
                         }}
@@ -83,5 +72,20 @@ export const Template = () => {
                 ))}
             </Layer>
         </Stage>
+    );
+};
+
+export const Result = () => {
+    const editorContext = useEditor();
+
+    const stageRef = editorContext.stageRef;
+    const [layers, setLayers] = editorContext.layers;
+    const [selectedTemplate] = editorContext.selectedTemplate;
+    const [selectedId, setSelectedId] = useState();
+
+    return (
+        <div style={{ width: selectedTemplate.width, height: selectedTemplate.height }} className={style.stage}>
+            <img className="w-full h-full object-contain" src={selectedTemplate.image} alt="result" />
+        </div>
     );
 };

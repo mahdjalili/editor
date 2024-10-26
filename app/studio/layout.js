@@ -9,13 +9,13 @@ import { Layout } from "antd";
 
 export default function layout({ children }) {
     return (
-        <Layout className="h-full w-full">
+        <Layout className="h-screen w-full">
             <Layout.Header className={styles.header}>
                 <Header></Header>
             </Layout.Header>
 
             <Layout className="h-full">
-                <Layout.Sider className={styles.sider} width={"20%"}>
+                <Layout.Sider className={styles.sider} width={"25%"}>
                     <Menu></Menu>
                 </Layout.Sider>
                 <Layout.Content>{children}</Layout.Content>
