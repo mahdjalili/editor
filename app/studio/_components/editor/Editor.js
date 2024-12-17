@@ -2,16 +2,43 @@
 
 import style from "./Editor.module.css";
 
-import { useState } from "react";
 import { Stage, Layer, Rect } from "react-konva";
+import { ReactFlow, Controls, Background, Button } from "@xyflow/react";
 
 import { useEditor } from "@/providers/EditorProvider";
 
 export default function Editor() {
+    const initialNodes = [
+        {
+            id: "template",
+            type: "template",
+            position: { x: 100, y: 100 },
+            data: { label: "Template" },
+        },
+    ];
+
+    const TemplateNode = () => {
+        return (
+            <div className="flex nodrag">
+                <Template />
+            </div>
+        );
+    };
+
     return (
         <div className={style.wrapper}>
-            <Template />
-            <Result />
+            <ReactFlow
+                nodes={initialNodes}
+                nodeTypes={{
+                    template: TemplateNode,
+                }}
+                fitView
+                defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+                colorMode="dark"
+            >
+                <Background />
+                <Controls />
+            </ReactFlow>
         </div>
     );
 }
@@ -72,20 +99,5 @@ export const Template = () => {
                 ))}
             </Layer>
         </Stage>
-    );
-};
-
-export const Result = () => {
-    const editorContext = useEditor();
-
-    const stageRef = editorContext.stageRef;
-    const [layers, setLayers] = editorContext.layers;
-    const [selectedTemplate] = editorContext.selectedTemplate;
-    const [selectedId, setSelectedId] = useState();
-
-    return (
-        <div style={{ width: selectedTemplate.width, height: selectedTemplate.height }} className={style.stage}>
-            <img className="w-full h-full object-contain" src={selectedTemplate.image} alt="result" />
-        </div>
     );
 };
