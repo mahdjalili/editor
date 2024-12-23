@@ -35,6 +35,7 @@ export default function Editor() {
                 fitView
                 defaultViewport={{ x: 0, y: 0, zoom: 1 }}
                 colorMode="dark"
+                minZoom={0.1}
             >
                 <Background />
                 <Controls />
