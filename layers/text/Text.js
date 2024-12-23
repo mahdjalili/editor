@@ -81,7 +81,7 @@ export function TextSetting({ onChange, component }) {
     };
 
     return (
-        <Card>
+        <div>
             <label className="label">متن:</label>
             <Input value={component.text} onChange={(e) => onInputsChange("text", e.target.value)} block></Input>
 
@@ -117,13 +117,14 @@ export function TextSetting({ onChange, component }) {
 
             <label className="label">عرض:</label>
             <InputNumber value={component.height} onChange={(value) => onInputsChange("height", value)}></InputNumber>
-        </Card>
+        </div>
     );
 }
 
 export const TextDefault = {
     // id: uid(),
     name: "متن",
+    icon: <i className="fa-regular fa-font"></i>,
     component: Text,
     componentSetting: TextSetting,
     fontFamily: "Vazirmatn",

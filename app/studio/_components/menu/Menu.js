@@ -3,13 +3,14 @@ import { useState, useContext } from "react";
 import { Divider } from "antd";
 
 import { EditorContext } from "@/providers/EditorProvider";
+import { layers as listOfLayers } from "@/layers/layers";
 
 import Setting from "./layers/Layers";
 import Templates from "./templates/Templates";
 
 export default function Menu() {
     const editorContext = useContext(EditorContext);
-    const listOfLayers = editorContext.listOfLayers;
+
     const [layers, setLayers] = editorContext.layers;
 
     const [select, setSelect] = useState(0);
@@ -21,12 +22,12 @@ export default function Menu() {
             icon: <i className="fa-regular fa-layer-group"></i>,
             component: Setting,
         },
-        {
-            key: 1,
-            name: "تمپلیت‌ها",
-            icon: <i className="fa-regular fa-rectangles-mixed"></i>,
-            component: Templates,
-        },
+        // {
+        //     key: 1,
+        //     name: "تمپلیت‌ها",
+        //     icon: <i className="fa-regular fa-rectangles-mixed"></i>,
+        //     component: Templates,
+        // },
     ];
 
     const Page = menu.find((item) => item.key == select).component;
@@ -49,19 +50,19 @@ export default function Menu() {
 
                 <Divider>+</Divider>
 
-                {Object.keys(listOfLayers).map((layer, index) => {
-                    const defaultValue = listOfLayers[layer];
+                {Object.keys(listOfLayers).map((key, index) => {
+                    const layer = listOfLayers[key];
 
                     return (
                         <button
                             className={styles.item}
                             key={index}
                             onClick={() => {
-                                setLayers((prev) => [...prev, defaultValue.component]);
+                                setLayers((prev) => [...prev, layer]);
                             }}
                         >
-                            {defaultValue.icon}
-                            {defaultValue.name}
+                            {layer.icon}
+                            {layer.name}
                         </button>
                     );
                 })}

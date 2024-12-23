@@ -85,50 +85,31 @@ export function ImageSetting({ onChange, component }) {
     };
 
     return (
-        <Card bodyStyle={{ padding: "10px" }}>
-            <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between gap-2 h-12">
-                    <AntImage className="aspect-square object-contain !w-4" src={component.src} alt="image" />
+        <div className="flex flex-col gap-2">
+            <AntImage className="aspect-square object-contain !w-4" src={component.src} alt="image" />
 
-                    <div className="flex items-center gap-2">
-                        <Button icon={<i className="fa-regular fa-trash-can"></i>}></Button>
-                        <Button icon={<i className="fa-regular fa-copy"></i>}></Button>
-                        <Button icon={<i className="fa-regular fa-arrows-spin"></i>}></Button>
-                        <Button icon={<i className="fa-regular fa-arrows-spin"></i>}></Button>
-                    </div>
-                </div>
+            <label className="label">لینک عکس:</label>
+            <Input value={component.src} onChange={(e) => onInputsChange("src", e.target.value)}></Input>
 
-                <div>
-                    <Collapse>
-                        <Collapse.Panel header="تنظیمات" key="1">
-                            <label className="label">لینک عکس:</label>
-                            <Input
-                                value={component.src}
-                                onChange={(e) => onInputsChange("src", e.target.value)}
-                            ></Input>
+            <label className="label">طول:</label>
+            <InputNumber
+                value={component.width}
+                onChange={(value) => onInputsChange("width", Math.floor(value))}
+            ></InputNumber>
 
-                            <label className="label">طول:</label>
-                            <InputNumber
-                                value={component.width}
-                                onChange={(value) => onInputsChange("width", Math.floor(value))}
-                            ></InputNumber>
-
-                            <label className="label">عرض:</label>
-                            <InputNumber
-                                value={component.height}
-                                onChange={(value) => onInputsChange("height", Math.floor(value))}
-                            ></InputNumber>
-                        </Collapse.Panel>
-                    </Collapse>
-                </div>
-            </div>
-        </Card>
+            <label className="label">عرض:</label>
+            <InputNumber
+                value={component.height}
+                onChange={(value) => onInputsChange("height", Math.floor(value))}
+            ></InputNumber>
+        </div>
     );
 }
 
 export const ImageDefault = {
     // id: uid(),
-    name: "تصویر",
+    name: "عکس",
+    icon: <i className="fa-regular fa-image"></i>,
     component: Image,
     componentSetting: ImageSetting,
     // url: "https://konvajs.github.io/assets/yoda.jpg",

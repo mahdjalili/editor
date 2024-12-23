@@ -1,11 +1,9 @@
 import Layers from "@/layers/layers";
 const { Background, Text, Image, Shape } = Layers;
 
-import templatesJson from "./templates.json" assert { type: "json" };
-import psdTemplate from "./psd.json" assert { type: "json" };
-import exampleTemplate from "./example.json" assert { type: "json" };
+import template from "@/templates/example.json";
 
-const templatesConverter = (template) => {
+export const templatesConverter = (template) => {
     return {
         id: "1",
         ratio: template.width / template.height,
@@ -65,6 +63,4 @@ const templatesConverter = (template) => {
     };
 };
 
-export const templates = [templatesConverter(exampleTemplate)];
-
-export default templates;
+export const defaultTemplate = templatesConverter(template);

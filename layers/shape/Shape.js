@@ -95,20 +95,29 @@ export function ShapeSetting({ onChange, component }) {
     };
 
     return (
-        <Card>
+        <div className="flex gap-2 flex-col">
             <label className="label">لینک عکس:</label>
-            <Input value={component.src} onChange={(e) => onInputsChange("src", e.target.value)}></Input>
+            <Input size="small" value={component.src} onChange={(e) => onInputsChange("src", e.target.value)}></Input>
 
             <label className="label">طول:</label>
-            <InputNumber value={component.width} onChange={(value) => onInputsChange("width", value)}></InputNumber>
+            <InputNumber
+                size="small"
+                value={component.width}
+                onChange={(value) => onInputsChange("width", value)}
+            ></InputNumber>
 
             <label className="label">عرض:</label>
-            <InputNumber value={component.height} onChange={(value) => onInputsChange("height", value)}></InputNumber>
+            <InputNumber
+                size="small"
+                value={component.height}
+                onChange={(value) => onInputsChange("height", value)}
+            ></InputNumber>
 
-            <Collapse>
+            <Collapse size="small">
                 <Collapse.Panel header="رنگ های شکل">
                     {colors.map((color, index) => (
                         <ColorPicker
+                            size="small"
                             key={index}
                             defaultValue={color}
                             onChangeComplete={(newColor) => onChangeShapeColor(newColor.toRgbString(), color)}
@@ -116,13 +125,14 @@ export function ShapeSetting({ onChange, component }) {
                     ))}
                 </Collapse.Panel>
             </Collapse>
-        </Card>
+        </div>
     );
 }
 
 export const ImageDefault = {
     // id: uid(),
     name: "شکل",
+    icon: <i className="fa-regular fa-square"></i>,
     component: Shape,
     componentSetting: ShapeSetting,
     // url: "https://konvajs.github.io/assets/yoda.jpg",

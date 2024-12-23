@@ -70,13 +70,13 @@ export const Template = () => {
             className={style.stage}
         >
             <Layer>
-                {/* <Rect
+                <Rect
                     x={0}
                     y={0}
                     width={selectedTemplate.width}
                     height={selectedTemplate.height}
                     fill={selectedTemplate.background}
-                /> */}
+                />
                 {layers.map((layer, index) => (
                     <layer.component
                         key={`key-${layer.id}`}

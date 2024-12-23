@@ -2,7 +2,7 @@
 
 import style from "./layers.module.css";
 
-import { Button, Empty } from "antd";
+import { Button, Empty, Card, Collapse } from "antd";
 import { useContext, useCallback, useRef } from "react";
 import { EditorContext } from "@/providers/EditorProvider";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -16,7 +16,6 @@ const ItemType = {
 
 export default function Setting() {
     const editorContext = useContext(EditorContext);
-
     const [layers, setLayers] = editorContext.layers;
 
     // Function to handle moving a layer
@@ -63,6 +62,9 @@ export default function Setting() {
 
 // New Layer component to handle drag and drop
 function Layer({ layer, index, moveLayer, removeLayer }) {
+    const editorContext = useContext(EditorContext);
+    const [layers, setLayers] = editorContext.layers;
+
     const ref = useRef(null);
 
     const [, drop] = useDrop({
@@ -86,22 +88,35 @@ function Layer({ layer, index, moveLayer, removeLayer }) {
     drag(drop(ref));
 
     return (
-        <div ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }} className="cursor-grab relative">
-            <div className="flex justify-between items-center absolute top-2 left-2  z-10">
+        <Card
+            extra={
                 <Button
+                    size="small"
                     color="danger"
                     icon={<i className="fa-regular fa-trash-can"></i>}
                     onClick={() => removeLayer(index)}
                 />
-            </div>
-            <layer.componentSetting
-                component={layer}
-                onChange={(newData) => {
-                    const newComponents = layers.slice();
-                    newComponents[index] = newData;
-                    setLayers(newComponents);
-                }}
-            />
-        </div>
+            }
+            title={layer.name}
+            ref={ref}
+            style={{ opacity: isDragging ? 0.5 : 1 }}
+            className="cursor-grab relative"
+            size="small"
+        >
+            <Collapse>
+                <Collapse.Panel header="تنظیمات">
+                    <layer.componentSetting
+                        component={layer}
+                        onChange={(newData) => {
+                            console.log(newData);
+                            const newComponents = layers.slice();
+                            console.log(newComponents);
+                            newComponents[index] = newData;
+                            setLayers(newComponents);
+                        }}
+                    />
+                </Collapse.Panel>
+            </Collapse>
+        </Card>
     );
 }

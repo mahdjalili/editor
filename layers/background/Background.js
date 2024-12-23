@@ -24,7 +24,8 @@ export function BackgroundSetting() {
 }
 
 export const BackgroundDefault = {
-    name: "پس زمینه",
+    name: "پس‌زمینه",
+    icon: <i className="fa-solid fa-trees"></i>,
     id: "1",
     component: Background,
     componentSetting: BackgroundSetting,

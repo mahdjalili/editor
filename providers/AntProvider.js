@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { ConfigProvider, theme as antTheme } from "antd";
 
 export default function AntProvider({ children }) {
-    const theme = {
+    const themeobj = {
         cssVar: true,
         hashed: false,
         algorithm: antTheme.darkAlgorithm,
@@ -10,5 +11,5 @@ export default function AntProvider({ children }) {
         },
     };
 
-    return <ConfigProvider theme={theme}>{children}</ConfigProvider>;
+    return <ConfigProvider theme={themeobj}>{children}</ConfigProvider>;
 }
