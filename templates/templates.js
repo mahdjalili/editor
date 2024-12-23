@@ -1,5 +1,5 @@
 import Layers from "@/layers/layers";
-const { Background, Text, Image, Shape } = Layers;
+const { Text, Image, Shape, Background } = Layers;
 
 import template from "@/templates/example.json";
 

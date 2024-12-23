@@ -107,16 +107,15 @@ export function ImageSetting({ onChange, component }) {
 }
 
 export const ImageDefault = {
-    // id: uid(),
     name: "عکس",
     icon: <i className="fa-regular fa-image"></i>,
     component: Image,
     componentSetting: ImageSetting,
     // url: "https://konvajs.github.io/assets/yoda.jpg",
-    // width: 100,
-    // height: 100,
-    // x: 50,
-    // y: 50,
+    width: 100,
+    height: 100,
+    x: 50,
+    y: 50,
 };
 
 export default ImageDefault;

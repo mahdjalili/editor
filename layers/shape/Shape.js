@@ -130,7 +130,6 @@ export function ShapeSetting({ onChange, component }) {
 }
 
 export const ImageDefault = {
-    // id: uid(),
     name: "شکل",
     icon: <i className="fa-regular fa-square"></i>,
     component: Shape,

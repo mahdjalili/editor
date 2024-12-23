@@ -1,4 +1,5 @@
 import styles from "./menu.module.css";
+
 import { useState, useContext } from "react";
 import { Divider } from "antd";
 
@@ -8,10 +9,13 @@ import { layers as listOfLayers } from "@/layers/layers";
 import Setting from "./layers/Layers";
 import Templates from "./templates/Templates";
 
+import { uid } from "uid";
+
 export default function Menu() {
     const editorContext = useContext(EditorContext);
 
     const [layers, setLayers] = editorContext.layers;
+    const [selectedLayerId, setSelectedLayerId] = editorContext.selectedLayerId;
 
     const [select, setSelect] = useState(0);
 
@@ -58,7 +62,9 @@ export default function Menu() {
                             className={styles.item}
                             key={index}
                             onClick={() => {
-                                setLayers((prev) => [...prev, layer]);
+                                let id = uid();
+                                setLayers((prev) => [...prev, { ...layer, id }]);
+                                setSelectedLayerId(id);
                             }}
                         >
                             {layer.icon}

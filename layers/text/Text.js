@@ -6,7 +6,6 @@ import { Card, Input, InputNumber, Select, ColorPicker } from "antd";
 
 import { useEffect, useRef } from "react";
 import { Text as TextKonva, Transformer } from "react-konva";
-import { uid } from "uid";
 
 export function Text({ shapeProps, onSelect, isSelected, onChange }) {
     const shapeRef = useRef();
@@ -122,23 +121,21 @@ export function TextSetting({ onChange, component }) {
 }
 
 export const TextDefault = {
-    // id: uid(),
     name: "متن",
     icon: <i className="fa-regular fa-font"></i>,
     component: Text,
     componentSetting: TextSetting,
     fontFamily: "Vazirmatn",
-    // text: "متن جدید",
-    // fontSize: 36,
-    // lineHeight: 1.1,
-    // fontStyle: "bold",
-    // stroke: "white",
-    // strokeWidth: 10,
-    // fill: "black",
-    // width: 170,
-    // height: 40,
-    // x: 10,
-    // y: 10,
+    text: "متن جدید",
+    fontSize: 36,
+    lineHeight: 1.1,
+    fontStyle: "bold",
+    stroke: "black",
+    fill: "black",
+    width: 170,
+    height: 40,
+    x: 10,
+    y: 10,
 };
 
 export default TextDefault;
