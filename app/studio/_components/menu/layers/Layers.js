@@ -130,7 +130,6 @@ function Layer({ layer, index, moveLayer, removeLayer }) {
                 border: selectedLayerId === layer.id ? "1px solid var(--ant-color-primary)" : "",
                 opacity: isDragging ? 0.2 : 1,
                 cursor: "move",
-                backgroundColor: isOver ? "#fafafa" : "",
                 transform: isDragging ? "scale(1)" : "scale(1)",
                 transition: "all 0.2s ease",
                 marginBottom: 10,

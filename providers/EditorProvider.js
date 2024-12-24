@@ -2,6 +2,7 @@ import { useState, useEffect, createContext, useRef, useContext } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import axios from "@/utils/axios";
+import WebFont from "webfontloader";
 
 import { layers as listOfLayers } from "@/layers/layers";
 import { templatesConverter, defaultTemplate } from "@/templates/templates";
@@ -45,10 +46,15 @@ export const EditorProvider = (props) => {
     }, [template.isSuccess]);
 
     useEffect(() => {
-        console.log("Layers Updated: ", layers);
+        console.log("Layers Changed:", layers);
+
+        // WebFont.load({
+        //     google: {
+        //         families: layers.map((layer) => layer.fontFamily), // Specify fonts dynamically
+        //     },
+        // });
     }, [layers]);
 
-    // Add a new function to handle layer deletion
     const handleDeleteLayer = (event) => {
         if (event.key === "Delete" && selectedLayerId) {
             setLayers((prevLayers) => prevLayers.filter((layer) => layer.id !== selectedLayerId));
@@ -56,7 +62,6 @@ export const EditorProvider = (props) => {
         }
     };
 
-    // Add an effect to handle the keydown event
     useEffect(() => {
         window.addEventListener("keydown", handleDeleteLayer);
         return () => {
