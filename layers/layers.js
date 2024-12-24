@@ -7,7 +7,7 @@ export const layers = {
     Text: Text,
     Image: Image,
     Shape: Shape,
-    // Background: Background,
+    Background: Background,
 };
 
 export default layers;
