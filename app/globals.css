@@ -61,11 +61,12 @@ button:hover {
 
 /* custom scrollbar */
 ::-webkit-scrollbar {
-    width: 0.5rem;
+    width: 4px;
+    
 }
 
 ::-webkit-scrollbar:hover {
-    width: 0.5rem;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -73,9 +74,7 @@ button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--line);
-    border-radius: var(--radius);
-    border: 0.5rem solid transparent;
+    background-color: var(--ant-color-primary);
     background-clip: content-box;
 }
 

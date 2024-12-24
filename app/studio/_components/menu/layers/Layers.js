@@ -1,7 +1,6 @@
 "use client";
 
 import style from "./layers.module.css";
-
 import { Button, Empty, Card, Collapse } from "antd";
 import { useContext, useCallback, useRef } from "react";
 import { EditorContext } from "@/providers/EditorProvider";
@@ -9,16 +8,10 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { useDrag, useDrop } from "react-dnd";
 
-// Define a type for the draggable items
-const ItemType = {
-    LAYER: "layer",
-};
-
 export default function Setting() {
     const editorContext = useContext(EditorContext);
     const [layers, setLayers] = editorContext.layers;
 
-    // Function to handle moving a layer
     const moveLayer = useCallback(
         (dragIndex, hoverIndex) => {
             const draggedLayer = layers[dragIndex];
@@ -32,9 +25,9 @@ export default function Setting() {
 
     const removeLayer = useCallback(
         (index) => {
-            const newLayers = layers.slice();
-            newLayers.splice(index, 1);
-            setLayers(newLayers);
+            const updatedLayers = [...layers];
+            updatedLayers.splice(index, 1);
+            setLayers(updatedLayers);
         },
         [layers, setLayers]
     );
@@ -44,47 +37,78 @@ export default function Setting() {
     }
 
     return (
-        <DndProvider backend={HTML5Backend} className={style.wrapper}>
-            <div className={style.list}>
+        <DndProvider backend={HTML5Backend}>
+            <div className={style.setting}>
                 {layers.map((layer, index) => (
-                    <Layer
-                        key={`key-${index}`}
-                        index={index}
-                        layer={layer}
-                        moveLayer={moveLayer}
-                        removeLayer={removeLayer}
-                    />
+                    <Layer key={layer.id} layer={layer} index={index} moveLayer={moveLayer} removeLayer={removeLayer} />
                 ))}
             </div>
         </DndProvider>
     );
 }
 
-// New Layer component to handle drag and drop
-function Layer({ layer, index, moveLayer, removeLayer }) {
-    const editorContext = useContext(EditorContext);
-    const [layers, setLayers] = editorContext.layers;
+const ItemType = {
+    LAYER: "layer",
+};
 
+function Layer({ layer, index, moveLayer, removeLayer }) {
     const ref = useRef(null);
 
-    const [, drop] = useDrop({
+    // Drop functionality
+    const [{ isOver }, drop] = useDrop({
         accept: ItemType.LAYER,
-        hover(item) {
-            if (item.index !== index) {
-                moveLayer(item.index, index);
-                item.index = index;
+
+        hover(item, monitor) {
+            if (!ref.current) {
+                return;
             }
+            const dragIndex = item.index;
+            const hoverIndex = index;
+
+            // Don't replace items with themselves
+            if (dragIndex === hoverIndex) {
+                return;
+            }
+
+            // Get rectangle on screen
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+
+            // Get vertical middle
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+            // Get mouse position
+            const clientOffset = monitor.getClientOffset();
+
+            // Get pixels to the top
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+            // Only perform the move when the mouse has crossed half of the items height
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
+
+            moveLayer(dragIndex, hoverIndex);
+            item.index = hoverIndex;
         },
+
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+        }),
     });
 
+    // Drag functionality
     const [{ isDragging }, drag] = useDrag({
         type: ItemType.LAYER,
-        item: { index },
+        item: { type: ItemType.LAYER, index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
     });
 
+    // Initialize drag and drop on the same ref
     drag(drop(ref));
 
     return (
@@ -92,27 +116,31 @@ function Layer({ layer, index, moveLayer, removeLayer }) {
             extra={
                 <Button
                     size="small"
-                    color="danger"
+                    danger
                     icon={<i className="fa-regular fa-trash-can"></i>}
                     onClick={() => removeLayer(index)}
                 />
             }
             title={layer.name}
             ref={ref}
-            style={{ opacity: isDragging ? 0.5 : 1 }}
-            className="cursor-grab relative"
+            style={{
+                opacity: isDragging ? 0.2 : 1,
+                cursor: "move",
+                backgroundColor: isOver ? "#fafafa" : "white",
+                transform: isDragging ? "scale(1)" : "scale(1)",
+                transition: "all 0.2s ease",
+                marginBottom: 10,
+            }}
             size="small"
         >
             <Collapse>
-                <Collapse.Panel header="تنظیمات">
+                <Collapse.Panel header="تنظیمات" key="1">
                     <layer.componentSetting
                         component={layer}
                         onChange={(newData) => {
-                            console.log(newData);
-                            const newComponents = layers.slice();
-                            console.log(newComponents);
-                            newComponents[index] = newData;
-                            setLayers(newComponents);
+                            const newLayers = layers.slice();
+                            newLayers[index] = newData;
+                            setLayers(newLayers);
                         }}
                     />
                 </Collapse.Panel>

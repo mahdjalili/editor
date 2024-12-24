@@ -50,7 +50,7 @@ export const EditorProvider = (props) => {
 
     // Add a new function to handle layer deletion
     const handleDeleteLayer = (event) => {
-        if ((event.key === "Delete" || event.key === "Backspace") && selectedLayerId) {
+        if (event.key === "Delete" && selectedLayerId) {
             setLayers((prevLayers) => prevLayers.filter((layer) => layer.id !== selectedLayerId));
             setSelectedLayerId(null);
         }

@@ -132,6 +132,7 @@ export const TextDefault = {
     fontStyle: "bold",
     stroke: "black",
     fill: "black",
+    align: "right",
     width: 170,
     height: 40,
     x: 10,

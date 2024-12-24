@@ -1,18 +1,20 @@
 import styles from "./menu.module.css";
 
 import { useState, useContext } from "react";
-import { Divider } from "antd";
+import { Divider, Button } from "antd";
 
 import { EditorContext } from "@/providers/EditorProvider";
 import { layers as listOfLayers } from "@/layers/layers";
 
 import Setting from "./layers/Layers";
-import Templates from "./templates/Templates";
 
 import { uid } from "uid";
+import { useAnt } from "@/providers/AntProvider";
 
 export default function Menu() {
     const editorContext = useContext(EditorContext);
+    const antContext = useAnt();
+    const [theme, setTheme] = antContext;
 
     const [layers, setLayers] = editorContext.layers;
     const [selectedLayerId, setSelectedLayerId] = editorContext.selectedLayerId;
@@ -26,12 +28,6 @@ export default function Menu() {
             icon: <i className="fa-regular fa-layer-group"></i>,
             component: Setting,
         },
-        // {
-        //     key: 1,
-        //     name: "تمپلیت‌ها",
-        //     icon: <i className="fa-regular fa-rectangles-mixed"></i>,
-        //     component: Templates,
-        // },
     ];
 
     const Page = menu.find((item) => item.key == select).component;
@@ -41,7 +37,8 @@ export default function Menu() {
             <div className={`${styles.menu} sticky top-0`}>
                 {menu.map((item) => (
                     <button
-                        className={`${styles.item} ${select == item.key && "!bg-[var(--ant-color-bg-spotlight)]"}`}
+                        className={`${styles.item} ${select == item.key && "!bg-[var(--ant-menu-item-selected-bg)]"}`}
+                        theme={theme}
                         key={item.key}
                         onClick={() => setSelect(item.key)}
                     >

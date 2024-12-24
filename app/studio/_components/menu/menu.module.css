@@ -19,8 +19,8 @@
     font-size: var(--ant-font-size-sm);
     color: var(--ant-color-text-base);
     aspect-ratio: 1/1;
-    background-color: var(--ant-color-bg-container);
+    background-color: var(--ant-color-bg-container) !important;
 }
 .item:hover {
-    background-color: var(--ant-color-bg-spotlight);
+    background-color: var(--ant-menu-item-hover-bg) !important;
 }

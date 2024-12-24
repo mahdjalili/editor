@@ -1,10 +1,14 @@
 import styles from "./header.module.css";
 
 import { DownloadOutlined } from "@ant-design/icons";
-import { Breadcrumb, Button } from "antd";
+import { Breadcrumb, Button, Switch } from "antd";
 import { useEditor } from "@/providers/EditorProvider";
+import { useAnt } from "@/providers/AntProvider";
 
 export default function Header() {
+    const antContext = useAnt();
+    const [theme, setTheme] = antContext;
+
     const editor = useEditor();
     const stageRef = editor.stageRef;
     const [, setSelectedLayerId] = editor.selectedLayerId;
@@ -46,6 +50,12 @@ export default function Header() {
             </div>
 
             <div>
+                <Switch
+                    checkedChildren="نم روشن"
+                    unCheckedChildren="تم تاریک"
+                    onChange={(value) => setTheme(value ? "dark" : "light")}
+                    defaultChecked
+                />
                 <Button onClick={handleExport} type="primary" icon={<DownloadOutlined />} size="large" />
             </div>
         </div>

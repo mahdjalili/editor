@@ -6,8 +6,12 @@ import { Stage, Layer, Rect } from "react-konva";
 import { ReactFlow, Controls, Background, Button } from "@xyflow/react";
 
 import { useEditor } from "@/providers/EditorProvider";
+import { useAnt } from "@/providers/AntProvider";
 
 export default function Editor() {
+    const antContext = useAnt();
+    const [theme, setTheme] = antContext;
+
     const initialNodes = [
         {
             id: "template",
@@ -34,7 +38,7 @@ export default function Editor() {
                 }}
                 fitView
                 defaultViewport={{ x: 0, y: 0, zoom: 1 }}
-                colorMode="dark"
+                colorMode={theme}
                 minZoom={0.1}
             >
                 <Background />
@@ -63,6 +67,7 @@ export const Template = () => {
 
     return (
         <Stage
+            dir="rtl"
             width={selectedTemplate.width}
             height={selectedTemplate.height}
             onMouseDown={checkDeselect}
