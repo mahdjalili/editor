@@ -52,6 +52,9 @@ const ItemType = {
 };
 
 function Layer({ layer, index, moveLayer, removeLayer }) {
+    const editorContext = useContext(EditorContext);
+    const [layers, setLayers] = editorContext.layers;
+    const [selectedLayerId, setSelectedLayerId] = editorContext.selectedLayerId;
     const ref = useRef(null);
 
     // Drop functionality
@@ -124,13 +127,16 @@ function Layer({ layer, index, moveLayer, removeLayer }) {
             title={layer.name}
             ref={ref}
             style={{
+                border: selectedLayerId === layer.id ? "1px solid var(--ant-color-primary)" : "",
                 opacity: isDragging ? 0.2 : 1,
                 cursor: "move",
-                backgroundColor: isOver ? "#fafafa" : "white",
+                backgroundColor: isOver ? "#fafafa" : "",
                 transform: isDragging ? "scale(1)" : "scale(1)",
                 transition: "all 0.2s ease",
                 marginBottom: 10,
             }}
+            onClick={() => setSelectedLayerId(layer.id)}
+            onDragStart={(e) => setSelectedLayerId(layer.id)}
             size="small"
         >
             <Collapse>
