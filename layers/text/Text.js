@@ -2,7 +2,7 @@
 
 import style from "./text.module.css";
 
-import { Card, Input, InputNumber, Select, ColorPicker } from "antd";
+import { Input, InputNumber, Select, ColorPicker } from "antd";
 
 import { useEffect, useRef } from "react";
 import { Text as TextKonva, Transformer } from "react-konva";
