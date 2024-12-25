@@ -14,9 +14,6 @@ COPY . .
 # Build the Next.js application
 RUN npm run build
 
-# Install only production dependencies
-RUN npm ci --only=production && npm cache clean --force
-
 # Use a lightweight, production-ready image
 FROM node:20-alpine
 
