@@ -1,8 +1,9 @@
+"use client";
+
 import { useState, useEffect, createContext, useRef, useContext } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import axios from "@/utils/axios";
-import WebFont from "webfontloader";
 
 import { layers as listOfLayers } from "@/layers/layers";
 import { templatesConverter, defaultTemplate } from "@/templates/templates";

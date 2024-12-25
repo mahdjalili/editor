@@ -1,7 +1,11 @@
-import Text from "@/layers/text/Text";
-import Image from "@/layers/image/Image";
-import Shape from "@/layers/shape/Shape";
-import Background from "@/layers/background/Background";
+"use client";
+
+import dynamic from "next/dynamic";
+
+const Text = dynamic(() => import("@/layers/text/Text"), { ssr: false });
+const Image = dynamic(() => import("@/layers/image/Image"), { ssr: false });
+const Shape = dynamic(() => import("@/layers/shape/Shape"), { ssr: false });
+const Background = dynamic(() => import("@/layers/background/Background"), { ssr: false });
 
 export const layers = {
     Text: Text,

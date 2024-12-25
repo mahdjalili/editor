@@ -1,15 +1,10 @@
-import { createContext, useEffect, useContext, useState } from "react";
+import { createContext, useEffect, useContext, useState, use } from "react";
 import { ConfigProvider, theme as antTheme } from "antd";
 
 export const AntContext = createContext();
 
 export default function AntProvider({ children }) {
-    const [theme, setTheme] = useState(() => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) return savedTheme;
-
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    });
+    const [theme, setTheme] = useState("light");
 
     useEffect(() => {
         localStorage.setItem("theme", theme);

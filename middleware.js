@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
-    return NextResponse.rewrite(new URL("/studio", request.url));
+    if (request.url === "/") return NextResponse.redirect(new URL("/studio", request.url));
 }
 
 export const config = {
