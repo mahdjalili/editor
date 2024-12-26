@@ -4,9 +4,10 @@ import { useState, useEffect, createContext, useRef, useContext } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import axios from "@/utils/axios";
-
+import WebFont from "webfontloader";
 import { layers as listOfLayers } from "@/layers/layers";
 import { templatesConverter, defaultTemplate } from "@/templates/templates";
+import { isEmpty } from "lodash";
 
 export const EditorContext = createContext();
 
@@ -49,11 +50,14 @@ export const EditorProvider = (props) => {
     useEffect(() => {
         console.log("Layers Changed:", layers);
 
-        // WebFont.load({
-        //     google: {
-        //         families: layers.map((layer) => layer.fontFamily), // Specify fonts dynamically
-        //     },
-        // });
+        let fontFamilies = layers.filter((layer) => layer.type == "text").map((layer) => layer.fontFamily);
+        if (!isEmpty(fontFamilies)) {
+            WebFont.load({
+                google: {
+                    families: fontFamilies,
+                },
+            });
+        }
     }, [layers]);
 
     const handleDeleteLayer = (event) => {
