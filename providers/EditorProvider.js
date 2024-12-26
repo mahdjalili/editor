@@ -137,6 +137,9 @@ export const EditorProvider = (props) => {
         };
     }, [selectedLayerId]);
 
+    if (template.isLoading) {
+        return <div>Loading...</div>;
+    }
     return <EditorContext.Provider value={editorContext}>{props.children}</EditorContext.Provider>;
 };
 
