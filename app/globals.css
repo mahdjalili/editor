@@ -2,22 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: "Vazirmatn";
-    font-style: normal;
-    font-weight: normal;
-    src: url("/fonts/vazir/Vazir.woff2") format("woff2"), url("/fonts/vazir/Vazir.woff") format("woff");
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Vazirmatn";
-    font-style: normal;
-    font-weight: bold;
-    src: url("/fonts/vazir/Vazir-Bold.woff2") format("woff2"), url("/fonts/vazir/Vazir-Bold.woff") format("woff");
-    font-display: swap;
-}
-
 * {
     box-sizing: border-box;
 }

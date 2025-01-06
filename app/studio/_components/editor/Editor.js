@@ -3,7 +3,7 @@
 import style from "./Editor.module.css";
 
 import { Stage, Layer, Rect } from "react-konva";
-import { ReactFlow, Controls, Background, Button } from "@xyflow/react";
+import { ReactFlow, Controls, Background } from "@xyflow/react";
 
 import { useEditor } from "@/providers/EditorProvider";
 import { useAnt } from "@/providers/AntProvider";

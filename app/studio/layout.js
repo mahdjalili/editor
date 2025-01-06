@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "./layout.module.css";
+import "@xyflow/react/dist/style.css";
 
 import Menu from "@studio/menu/Menu";
 import Header from "@studio/header/Header";

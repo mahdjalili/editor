@@ -7,7 +7,7 @@ import axios from "@/utils/axios";
 import WebFont from "webfontloader";
 import { layers as listOfLayers } from "@/layers/layers";
 import { templatesConverter, defaultTemplate } from "@/templates/templates";
-import { isEmpty, set } from "lodash";
+import { isEmpty } from "lodash";
 
 export const EditorContext = createContext();
 
@@ -21,7 +21,7 @@ export const EditorProvider = (props) => {
 
     editorContext.selectedTemplate = useState(defaultTemplate);
     editorContext.layers = useState(defaultTemplate.layers);
-    editorContext.selectedLayerId = useState(defaultTemplate.layers[0].id);
+    editorContext.selectedLayerId = useState(defaultTemplate.layers[0]?.id ?? null);
 
     const [selectedTemplate, setSelectedTemplate] = editorContext.selectedTemplate;
     const [layers, setLayers] = editorContext.layers;
@@ -40,7 +40,7 @@ export const EditorProvider = (props) => {
         skipEffectRef.current = true;
         setSelectedTemplate(template);
         setLayers(template.layers);
-        setSelectedLayerId(template.layers[0].id);
+        setSelectedLayerId(template.layers[0].id ?? null);
 
         setHistory([template.layers]);
         setHistoryStep(0);

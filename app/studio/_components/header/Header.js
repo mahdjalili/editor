@@ -66,7 +66,7 @@ export default function Header() {
                     checkedChildren="نم روشن"
                     unCheckedChildren="تم تاریک"
                     onChange={(value) => setTheme(value ? "dark" : "light")}
-                    defaultChecked
+                    defaultChecked={theme === "dark"}
                 />
 
                 <Button onClick={handleExport} type="primary" icon={<DownloadOutlined />} size="large" />

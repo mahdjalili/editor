@@ -5,6 +5,7 @@
     "scripts": {
         "bun:dev": "bun --bun run dev",
         "dev": "next dev",
+        "bun:build": "bun --bun run build",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"

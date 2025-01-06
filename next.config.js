@@ -2,10 +2,7 @@
 
 const nextConfig = {
     webpack: (config) => {
-        config.resolve.fallback = {
-            ...config.resolve.fallback,
-            canvas: false,
-        };
+        // config.externals = [...config.externals, { canvas: "canvas" }];
         return config;
     },
     compiler: {

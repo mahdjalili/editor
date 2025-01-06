@@ -1,13 +1,14 @@
-import Text from "@/layers/text/Text";
-import Image from "@/layers/image/Image";
-import Shape from "@/layers/shape/Shape";
-import Background from "@/layers/background/Background";
+"use client";
+
+import dynamic from "next/dynamic";
+
+
 
 export const layers = {
-    Text: Text,
-    Image: Image,
-    Shape: Shape,
-    // Background: Background,
+    Text: dynamic(() => import("@/layers/text/Text")),
+    Image: dynamic(() => import("@/layers/image/Image")),
+    Shape: dynamic(() => import("@/layers/shape/Shape")),
+    // Background: dynamic(() => import("@/layers/background/Background")),
 };
 
 export default layers;
