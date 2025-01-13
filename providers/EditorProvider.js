@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "@/utils/axios";
 import WebFont from "webfontloader";
 import { layers as listOfLayers } from "@/layers/layers";
-import { templatesConverter, defaultTemplate } from "@/templates/templates";
+import { templatesConverter, defaultTemplate, templateExporter } from "@/templates/templates";
 import { isEmpty } from "lodash";
 
 export const EditorContext = createContext();
@@ -44,6 +44,42 @@ export const EditorProvider = (props) => {
 
         setHistory([template.layers]);
         setHistoryStep(0);
+    };
+
+    editorContext.exportTemplateJson = () => {
+        const downloadJson = (json) => {
+            const blob = new Blob([JSON.stringify(json)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "template.json";
+            a.click();
+        };
+
+        var templateJson = templateExporter({ ...selectedTemplate, layers: [...layers] });
+        console.log("Exporting Template Json", templateJson);
+        downloadJson(templateJson);
+
+        return templateJson;
+    };
+
+    editorContext.exportTemplateImage = () => {
+        const downloadURI = (uri, name) => {
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = uri;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        setSelectedLayerId(null);
+        setTimeout(() => {
+            const uri = editorContext.stageRef.current.toDataURL();
+            downloadURI(uri, "composite.png");
+
+            return uri;
+        }, 50);
     };
 
     const template = useQuery({

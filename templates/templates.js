@@ -63,4 +63,24 @@ export const templatesConverter = (template) => {
     };
 };
 
+export const templateExporter = (template) => {
+    return {
+        id: template.id,
+        width: template.width,
+        height: template.height,
+        ratio: template.ratio,
+        thumbnail: template.thumbnail,
+        pages: [
+            {
+                background: template.background,
+                children: template.layers.map((layer) => {
+                    return {
+                        ...layer,
+                    };
+                }),
+            },
+        ],
+    };
+};
+
 export const defaultTemplate = templatesConverter(template);

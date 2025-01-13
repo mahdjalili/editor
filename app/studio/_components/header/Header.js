@@ -1,7 +1,7 @@
 import styles from "./header.module.css";
 
 import { DownloadOutlined } from "@ant-design/icons";
-import { Breadcrumb, Button, Switch, Tooltip } from "antd";
+import { Breadcrumb, Button, Switch, Tooltip, Popover } from "antd";
 import { useEditor } from "@/providers/EditorProvider";
 import { useAnt } from "@/providers/AntProvider";
 
@@ -17,22 +17,8 @@ export default function Header() {
     const undo = history.undo;
     const redo = history.redo;
 
-    const downloadURI = (uri, name) => {
-        var link = document.createElement("a");
-        link.download = name;
-        link.href = uri;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-
-    const handleExport = () => {
-        setSelectedLayerId(null);
-        setTimeout(() => {
-            const uri = stageRef.current.toDataURL();
-            downloadURI(uri, "composite.png");
-        }, 50);
-    };
+    const handleExportJson = editor.exportTemplateJson;
+    const handleExportImage = editor.exportTemplateImage;
 
     return (
         <div className={styles.wrapper}>
@@ -69,7 +55,20 @@ export default function Header() {
                     defaultChecked={theme === "dark"}
                 />
 
-                <Button onClick={handleExport} type="primary" icon={<DownloadOutlined />} size="large" />
+                <Popover
+                    content={
+                        <div className="flex flex-col gap-2 min-w-[100px]">
+                            <Button onClick={handleExportImage}>
+                                <i className="fa-regular fa-image"></i>
+                            </Button>
+                            <Button onClick={handleExportJson}>
+                                <i className="fa-regular fa-file-code"></i>
+                            </Button>
+                        </div>
+                    }
+                >
+                    <Button onClick={handleExportImage} type="primary" icon={<DownloadOutlined />} size="large" />
+                </Popover>
             </div>
         </div>
     );
