@@ -10,10 +10,10 @@ export default function Header() {
     const [theme, setTheme] = antContext;
 
     const editor = useEditor();
-    const stageRef = editor.stageRef;
-    const [, setSelectedLayerId] = editor.selectedLayerId;
 
     const history = editor.history;
+    const historyLayers = history.layers[0];
+    const step = history.step[0];
     const undo = history.undo;
     const redo = history.redo;
 
@@ -41,11 +41,21 @@ export default function Header() {
 
             <div>
                 <Tooltip title="بازگردانی آخرین تغییرات">
-                    <Button onClick={undo} type="text" icon={<i className="fa-regular fa-undo"></i>}></Button>
+                    <Button
+                        disabled={step === 0}
+                        onClick={undo}
+                        type="text"
+                        icon={<i className="fa-regular fa-undo"></i>}
+                    ></Button>
                 </Tooltip>
 
                 <Tooltip title="تکرار آخرین تغییرات">
-                    <Button onClick={redo} type="text" icon={<i className="fa-regular fa-redo"></i>}></Button>
+                    <Button
+                        disabled={step === historyLayers.length - 1}
+                        onClick={redo}
+                        type="text"
+                        icon={<i className="fa-regular fa-redo"></i>}
+                    ></Button>
                 </Tooltip>
 
                 <Switch
@@ -58,11 +68,11 @@ export default function Header() {
                 <Popover
                     content={
                         <div className="flex flex-col gap-2 min-w-[100px]">
-                            <Button onClick={handleExportImage}>
-                                <i className="fa-regular fa-image"></i>
+                            <Button icon={<i className="fa-regular fa-image"></i>} onClick={handleExportImage} block>
+                                تصویر
                             </Button>
-                            <Button onClick={handleExportJson}>
-                                <i className="fa-regular fa-file-code"></i>
+                            <Button icon={<i className="fa-regular fa-file-code"></i>} onClick={handleExportJson} block>
+                                فایل
                             </Button>
                         </div>
                     }
