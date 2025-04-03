@@ -3,12 +3,13 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "bun:dev": "bun --bun run dev",
-        "dev": "next dev --port 8000",
-        "bun:build": "bun --bun run build",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
+        "dev": "bun --bun next dev --port 8000",
+        "build": "bun --bun next build",
+        "start": "bun --bun next start",
+        "lint": "bun --bun next lint",
+        "version:patch": "bun run scripts/version.js patch",
+        "version:minor": "bun run scripts/version.js minor",
+        "version:major": "bun run scripts/version.js major"
     },
     "dependencies": {
         "@ant-design/nextjs-registry": "^1.0.0",
