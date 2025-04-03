@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "bun:dev": "bun --bun run dev",
-        "dev": "next dev",
+        "dev": "next dev --port 8000",
         "bun:build": "bun --bun run build",
         "build": "next build",
         "start": "next start",

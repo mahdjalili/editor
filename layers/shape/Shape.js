@@ -10,7 +10,7 @@ import { useSvgColors, replaceSvgColor, useReplaceSvgColors } from "@/hooks/useS
 
 export function Shape({ shapeProps, onSelect, isSelected, onChange, onDragStart, onDragEnd }) {
     const src = useReplaceSvgColors(shapeProps.src, shapeProps.colorsReplace);
-    const [image] = useImage(src, "anonymous");
+    const [image] = useImage(shapeProps.src, "anonymous");
 
     const shapeRef = useRef();
     const trRef = useRef();

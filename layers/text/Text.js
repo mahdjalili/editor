@@ -84,12 +84,26 @@ export function TextSetting({ onChange, component }) {
             <label className="label">متن:</label>
             <Input value={component.text} onChange={(e) => onInputsChange("text", e.target.value)} block></Input>
 
+            <label className="label">فونت:</label>
+            <Input
+                value={component.fontFamily}
+                onChange={(e) => onInputsChange("fontFamily", e.target.value)}
+                block
+            ></Input>
+
             <label className="label">سایز متن:</label>
             <InputNumber
                 value={component.fontSize}
                 onChange={(value) => onInputsChange("fontSize", value)}
                 block
             ></InputNumber>
+
+            <label className="label">سبک:</label>
+            <Input
+                value={component.fontStyle}
+                onChange={(e) => onInputsChange("fontStyle", e.target.value)}
+                block
+            ></Input>
 
             <label className="label">ارتفاع خط:</label>
             <InputNumber
@@ -130,7 +144,6 @@ export const TextDefault = {
     fontSize: 36,
     lineHeight: 1.1,
     fontStyle: "bold",
-    stroke: "black",
     fill: "black",
     align: "right",
     width: 170,
