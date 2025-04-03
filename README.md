@@ -1,91 +1,92 @@
-# Editor Project
+# Editor Studio
 
-A modern web-based editor application built with Next.js, React, and various powerful libraries for creating rich interactive experiences.
+A modern, feature-rich web-based editor built with Next.js, React, and Konva. This application provides a powerful canvas-based editing environment with support for multiple layer types, drag-and-drop functionality, and real-time editing capabilities.
 
 ## Features
 
--   Modern React-based architecture using Next.js 14
--   Rich UI components powered by Ant Design
--   Interactive canvas functionality with Konva
--   Drag and drop capabilities
--   Docker support for containerization
+-   🎨 **Canvas Editor**: Interactive canvas with support for multiple layer types
+-   📝 **Layer Management**: Support for text, image, shape, and background layers
+-   🖱️ **Drag & Drop**: Intuitive drag-and-drop interface for layer manipulation
+-   🎯 **Real-time Editing**: Instant updates and modifications
+-   🌓 **Theme Support**: Light and dark mode support
+-   📱 **Responsive Design**: Works across different screen sizes
 
 ## Tech Stack
 
--   **Framework**: Next.js 14
--   **Runtime**: Bun
+-   **Frontend Framework**: Next.js 14
+-   **UI Library**: React 18
+-   **Canvas Library**: Konva & React-Konva
+-   **State Management**: React Context
+-   **Styling**: Tailwind CSS
 -   **UI Components**: Ant Design
--   **Canvas**: Konva, React-Konva
-
-## Getting Started
-
-### Prerequisites
-
--   Bun (Recommended) or Node.js (LTS version)
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone [repository-url]
-cd editor
-```
-
-2. Install dependencies:
-
-```bash
-bun install
-```
-
-3. Create a `.env` file in the root directory with your environment variables.
-
-### Development
-
-Run the development server:
-
-```bash
-bun run dev
-```
-
-The application will be available at `http://localhost:8000`.
-
-### Building for Production
-
-```bash
-bun run build
-```
-
-### Starting Production Server
-
-```bash
-bun run start
-```
-
-## Docker Support
-
-The project includes a Dockerfile for containerized deployment. To build and run the Docker container:
-
-```bash
-docker build -t editor .
-docker run -p 8000:8000 editor
-```
+-   **Form Handling**: Formik & Yup
+-   **API Client**: Axios
+-   **Development**: Bun Runtime
 
 ## Project Structure
 
 ```
 ├── app/                    # Next.js app directory
-│   ├── studio/            # Main application area
-│   │   └── _components/   # Studio components
-├── api/                   # API routes
-├── hooks/                 # Custom React hooks
-├── layers/               # Canvas layers
-├── providers/            # Context providers
-├── public/               # Static assets
-├── templates/            # Template files
-├── utils/                # Utility functions
-└── scripts/              # Build and utility scripts
+│   └── studio/            # Main editor application
+│       └── _components/   # Editor components
+├── layers/                # Layer type implementations
+│   ├── text/             # Text layer components
+│   ├── image/            # Image layer components
+│   ├── shape/            # Shape layer components
+│   └── background/       # Background layer components
+├── providers/            # React Context providers
+├── utils/               # Utility functions
+└── public/              # Static assets
 ```
+
+## Getting Started
+
+1. **Prerequisites**
+
+    - Bun (recommended) or Node.js (v18 or later)
+
+2. **Installation**
+
+    ```bash
+    # Clone the repository
+    git clone [repository-url]
+
+    # Install dependencies
+    bun install
+    # or
+    npm install
+    ```
+
+3. **Development**
+
+    ```bash
+    # Start development server
+    bun run dev
+    # or
+    npm run dev
+    ```
+
+4. **Building for Production**
+
+    ```bash
+    # Build the application
+    bun run build
+    # or
+    npm run build
+
+    # Start production server
+    bun run start
+    # or
+    npm run start
+    ```
+
+## Version Management
+
+The project includes version management scripts:
+
+-   `bun run version:patch` - Increment patch version
+-   `bun run version:minor` - Increment minor version
+-   `bun run version:major` - Increment major version
 
 ## Contributing
 
