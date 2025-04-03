@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const { execSync } = require("child_process");
 
 const packageFile = path.join(process.cwd(), "package.json");
 
@@ -39,5 +40,14 @@ packageData.version = newVersion;
 
 // Write updated package.json
 fs.writeFileSync(packageFile, JSON.stringify(packageData, null, 2));
+
+// Create Git tag
+try {
+    execSync(`git tag -a v${newVersion} -m "Version ${newVersion}"`);
+    console.log(`Created Git tag v${newVersion}`);
+} catch (error) {
+    console.error("Failed to create Git tag:", error.message);
+    process.exit(1);
+}
 
 console.log(`Version updated to ${newVersion}`);
